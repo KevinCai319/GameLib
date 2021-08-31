@@ -15,7 +15,7 @@ int Layer::update()
 	
 	
 }
-void Layer::addEntities() {
+void Layer::createEntities() {
 	while (!addEntityQueue.empty()) 
 	{
 		Layer* newEntity = &addEntityQueue.front();
@@ -38,6 +38,30 @@ void Layer::addEntities() {
 	}
 }
 
+void Layer::destroyEntities() {
+	while (!removeEntityQueue.empty())
+	{
+		Layer* byebyeEntity = &removeEntityQueue.front();
+		if (!byebyeEntity->tags.empty())
+		{
+			std::vector<std::string> tagsToBeAdded = byebyeEntity->tags;
+			for (std::string tag : tagsToBeAdded)
+			{
+				if (entities.count(tag) > 0)
+				{
+
+				}
+				else
+				{
+					//Something really fucked up
+				}
+			}
+			removeEntityQueue.pop();
+		}
+	}
+}
+
+
 
 bool Layer::addEntity(Layer& layer)
 {
@@ -58,7 +82,7 @@ bool Layer::modifyEntityTag(Layer& layer, std::string oldTag, std::string newTag
 
 std::set<Layer>* Layer::getTag(std::string tag)
 {
-	return entities[tag];
+	return &entities[tag];
 }
 
 void Layer::init()

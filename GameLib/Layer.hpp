@@ -32,6 +32,8 @@ class Layer : public sf::Drawable, public sf::Transformable
 		/// \param parent: the parent of this layer.
 		////////////////////////////////////////////////////////////
 		int update();
+
+		
 		
 		////////////////////////////////////////////////////////////
 		/// \brief Add an entity to this layer.
@@ -73,7 +75,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		std::queue<Layer> addEntityQueue;
 		std::queue<Layer> removeEntityQueue;
 		Layer* parent;
-		void addEntities();
-		void removeEntities();
+		void createEntities();
+		void destroyEntities();
 };
 
