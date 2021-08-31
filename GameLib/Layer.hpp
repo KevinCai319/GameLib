@@ -21,9 +21,9 @@ class Layer : public sf::Drawable, public sf::Transformable
 		
 		////////////////////////////////////////////////////////////
 		/// \brief Update every entity contained in this layer.
-		/// 
+		/// \param parent: the parent of this layer.
 		////////////////////////////////////////////////////////////
-		int update();
+		int update(Layer* parent);
 
 		
 		////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		/// \brief Recieve all tags with a given tag within this layer.
 		/// \param tag: the tag of the entities to be returned.
 		////////////////////////////////////////////////////////////
-		std::set<Layer>* getTag(std::string tag);
+		std::set<sf::Drawable>* getTag(std::string tag);
 		
 		// handle request
 		virtual void recieve(int status);

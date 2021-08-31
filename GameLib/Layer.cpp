@@ -1,7 +1,11 @@
 #include "Layer.hpp"
 
-int Layer::update()
+int Layer::update(Layer* parent)
 {
+	//To be added stuff
+	//To be destroyed stuff
+	//update
+
 	return 0;
 }
 
@@ -20,9 +24,9 @@ bool Layer::modifyEntityTag(sf::Drawable& layer, std::string oldTag, std::string
 	return false;
 }
 
-std::set<Layer>* Layer::getTag(std::string tag)
+std::set<sf::Drawable>* Layer::getTag(std::string tag)
 {
-	return nullptr;
+	return &entities[tag];
 }
 
 void Layer::recieve(int status)
