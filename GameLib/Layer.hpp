@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <string>
 #include <map>
 #include <set>
@@ -18,26 +19,32 @@ class Layer : public sf::Drawable, public sf::Transformable
 	public:
 		//used by a layer to skip an update call or not.
 		bool skipUpdate;
-		
+		int status;
+		std::vector<std::string> tags;
+		////////////////////////////////////////////////////////////
+		/// \brief Create a new layer.
+		/// \param parent: the parent of this layer.
+		////////////////////////////////////////////////////////////
+		Layer(Layer* parent);
+
 		////////////////////////////////////////////////////////////
 		/// \brief Update every entity contained in this layer.
 		/// \param parent: the parent of this layer.
 		////////////////////////////////////////////////////////////
-		int update(Layer* parent);
-
+		int update();
 		
 		////////////////////////////////////////////////////////////
 		/// \brief Add an entity to this layer.
 		/// \param layer: the entity to add.
 		////////////////////////////////////////////////////////////
-		bool addEntity(sf::Drawable& layer);
+		bool addEntity(Layer& layer);
 
 		
 		////////////////////////////////////////////////////////////
 		/// \brief Remove an entity from this layer.
 		/// \param layer: the entity to remove.
 		////////////////////////////////////////////////////////////
-		bool removeEntity(sf::Drawable& layer);
+		bool removeEntity(Layer& layer);
 		
 		
 		////////////////////////////////////////////////////////////
@@ -46,14 +53,15 @@ class Layer : public sf::Drawable, public sf::Transformable
 		/// \param oldTag: the old tag to be removed. If null, then no tag from layer is removed. 
 		/// \param newTag: the new tag to be added. If null, then no new tag is given.
 		////////////////////////////////////////////////////////////
-		bool modifyEntityTag(sf::Drawable& layer, std::string oldTag, std::string newTag);
+		bool modifyEntityTag(Layer& layer, std::string oldTag, std::string newTag);
 
 		////////////////////////////////////////////////////////////
 		/// \brief Recieve all tags with a given tag within this layer.
 		/// \param tag: the tag of the entities to be returned.
 		////////////////////////////////////////////////////////////
-		std::set<sf::Drawable>* getTag(std::string tag);
+		std::set<Layer>* getTag(std::string tag);
 		
+		virtual void init();
 		// handle request
 		virtual void recieve(int status);
 		
@@ -61,9 +69,11 @@ class Layer : public sf::Drawable, public sf::Transformable
 		virtual void notify(Layer& layer,int status);
 
 	private:
-		std::map<std::string, std::set<sf::Drawable>> entities;
-		std::queue<sf::Drawable> addEntityQueue;
-		std::queue<sf::Drawable> removeEntityQueue;
+		std::map<std::string, std::set<Layer>> entities;
+		std::queue<Layer> addEntityQueue;
+		std::queue<Layer> removeEntityQueue;
 		Layer* parent;
+		void addEntities();
+		void removeEntities();
 };
 
