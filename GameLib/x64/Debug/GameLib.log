@@ -1,2 +1,2 @@
-﻿  main.cpp
-  GameLib.vcxproj -> C:\dev\GameLib\GameLib\x64\Debug\GameLib.exe
+﻿  Layer.cpp
+C:\dev\GameLib\GameLib\Layer.hpp(53,4): error C3409: empty attribute block is not allowed
