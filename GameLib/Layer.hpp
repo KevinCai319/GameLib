@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <unordered_set>
 #include <set>
 #include <queue>
@@ -19,7 +19,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 	
 	public:
 		//used by a layer to skip an update call or not.
-		bool skipUpdate;
+		bool skipUpdate = false;
 		int status;
 		std::vector<std::string> tags;
 		////////////////////////////////////////////////////////////
@@ -48,6 +48,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		int update();
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states);
+		void drawChildren(sf::RenderTarget& target, sf::RenderStates states);
 		
 		////////////////////////////////////////////////////////////
 		/// \brief Add an entity to this layer.
@@ -77,7 +78,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		////////////////////////////////////////////////////////////
 		std::set<Layer>* getTag(std::string tag);
 		
-		//constructor
+		//
 		virtual void init();
 		
 		// handle request
@@ -87,7 +88,8 @@ class Layer : public sf::Drawable, public sf::Transformable
 		virtual void notify(Layer& layer,int status);
 
 	private:
-		std::map<std::string, std::set<Layer>> entities;
+		std::unordered_map<std::string, std::vector<Layer>> entities;
+		std::vector<Layer> toUpdate;
 		std::queue<Layer> addEntityQueue;
 		std::queue<Layer> removeEntityQueue;
 		Layer* parent;

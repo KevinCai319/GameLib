@@ -26,12 +26,19 @@ int Layer::update()
 	//update everything else
 	int out = main();
 }
+
 void Layer::draw(sf::RenderTarget& target, sf::RenderStates states)
 {
-	for (auto group: entities) {
+	
+}
 
+void Layer::drawChildren(sf::RenderTarget& target, sf::RenderStates states)
+{
+	for (std::vector<Layer> group : toUpdate) {
+		group.draw(target, states);
 	}
 }
+
 void Layer::createEntities() {
 	while (!addEntityQueue.empty()) 
 	{
@@ -105,6 +112,7 @@ std::set<Layer>* Layer::getTag(std::string tag)
 
 void Layer::init()
 {
+
 }
 
 void Layer::recieve(int status)
