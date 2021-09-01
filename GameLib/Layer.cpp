@@ -41,10 +41,10 @@ void Layer::createEntities() {
 void Layer::destroyEntities() {
 	while (!removeEntityQueue.empty())
 	{
-		Layer* byebyeEntity = &removeEntityQueue.front();
-		if (!byebyeEntity->tags.empty())
+		Layer* garbageEntity = &removeEntityQueue.front();
+		if (!garbageEntity->tags.empty())
 		{
-			std::vector<std::string> tagsToBeAdded = byebyeEntity->tags;
+			std::vector<std::string> tagsToBeAdded = garbageEntity->tags;
 			for (std::string tag : tagsToBeAdded)
 			{
 				if (entities.count(tag) > 0)
@@ -53,7 +53,7 @@ void Layer::destroyEntities() {
 				}
 				else
 				{
-					//Something really fucked up
+					std::cout << "Something really bad happened...\n";
 				}
 			}
 			removeEntityQueue.pop();
