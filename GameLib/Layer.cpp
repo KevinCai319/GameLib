@@ -7,13 +7,30 @@ Layer::Layer(Layer* parent)
 	this->init();
 }
 
-int Layer::update()
+void Layer::clean()
 {
 	//To be added stuff
+	createEntities();
 	//To be destroyed stuff
-	//update
-	
-	
+	destroyEntities();
+}
+
+int Layer::main()
+{
+	return 0;
+}
+
+int Layer::update()
+{
+	clean();
+	//update everything else
+	int out = main();
+}
+void Layer::draw(sf::RenderTarget& target, sf::RenderStates states)
+{
+	for (auto group: entities) {
+
+	}
 }
 void Layer::createEntities() {
 	while (!addEntityQueue.empty()) 
@@ -26,11 +43,12 @@ void Layer::createEntities() {
 			{
 				if (entities.count(tag) > 0) 
 				{
-
+					entities[tag].insert(*newEntity);
 				}
 				else 
 				{
-
+					entities[tag] = std::set<Layer>();
+					entities[tag].insert(*newEntity);
 				}
 			}
 			addEntityQueue.pop();
@@ -49,7 +67,7 @@ void Layer::destroyEntities() {
 			{
 				if (entities.count(tag) > 0)
 				{
-
+					entities[tag].erase(*garbageEntity);
 				}
 				else
 				{

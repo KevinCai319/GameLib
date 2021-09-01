@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <unordered_set>
 #include <set>
 #include <queue>
 #include <SFML/Graphics.hpp>
@@ -28,12 +29,25 @@ class Layer : public sf::Drawable, public sf::Transformable
 		Layer(Layer* parent);
 
 		////////////////////////////////////////////////////////////
+		/// \brief handle important operations between frames.(add/delete/modify objects)
+		/// 
+		////////////////////////////////////////////////////////////
+		void clean();
+
+
+		////////////////////////////////////////////////////////////
+		/// \brief specific implementaion detail of 
+		/// 
+		////////////////////////////////////////////////////////////
+		virtual int main();
+		
+		////////////////////////////////////////////////////////////
 		/// \brief Update every entity contained in this layer.
 		/// \param parent: the parent of this layer.
 		////////////////////////////////////////////////////////////
 		int update();
 
-		
+		void draw(sf::RenderTarget& target, sf::RenderStates states);
 		
 		////////////////////////////////////////////////////////////
 		/// \brief Add an entity to this layer.
@@ -63,7 +77,9 @@ class Layer : public sf::Drawable, public sf::Transformable
 		////////////////////////////////////////////////////////////
 		std::set<Layer>* getTag(std::string tag);
 		
+		//constructor
 		virtual void init();
+		
 		// handle request
 		virtual void recieve(int status);
 		
