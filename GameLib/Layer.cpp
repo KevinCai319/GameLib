@@ -25,24 +25,24 @@ int Layer::update()
 	clean();
 	//update everything else
 	int out = main();
+	return out;
 }
 
 void Layer::draw(sf::RenderTarget& target, sf::RenderStates states)
 {
-
-}
-
-void Layer::drawChildren(sf::RenderTarget& target, sf::RenderStates states)
-{
-	for (auto group : toUpdate) {
-		group.draw(target, states);
+	for (Layer* group : toUpdate) {
+		group->draw(target, states);
 	}
+	render(target,states);
 }
+
+
+
 
 void Layer::createEntities() {
 	while (!addEntityQueue.empty()) 
 	{
-		Layer* newEntity = &addEntityQueue.front();
+		Layer* newEntity = addEntityQueue.front();
 		if (!newEntity->tags.empty()) 
 		{
 			std::vector<std::string> tagsToBeAdded = newEntity->tags;
@@ -66,7 +66,7 @@ void Layer::createEntities() {
 void Layer::destroyEntities() {
 	while (!removeEntityQueue.empty())
 	{
-		Layer* garbageEntity = &removeEntityQueue.front();
+		Layer* garbageEntity = removeEntityQueue.front();
 		if (!garbageEntity->tags.empty())
 		{
 			std::vector<std::string> tagsToBeRemoved = garbageEntity->tags;
@@ -75,6 +75,7 @@ void Layer::destroyEntities() {
 				if (entities.count(tag) > 0)
 				{
 					entities[tag].erase(*garbageEntity);
+
 				}
 				else
 				{
@@ -86,19 +87,19 @@ void Layer::destroyEntities() {
 	}
 }
 
-bool Layer::addEntity(Layer& layer)
+bool Layer::addEntity(Layer* layer)
 {
 	this->addEntityQueue.push(layer);
 	return true;
 }
 
-bool Layer::removeEntity(Layer& layer)
+bool Layer::removeEntity(Layer* layer)
 {
 	this->removeEntityQueue.push(layer);
 	return true;
 }
 
-bool Layer::modifyEntityTag(Layer& layer, std::string& oldTag, std::string& newTag)
+bool Layer::modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newTag)
 {
 	return false;
 }
@@ -108,15 +109,3 @@ const std::set<Layer>& Layer::getTag(std::string& tag)
 	return entities[tag]; 
 }
 
-void Layer::init()
-{
-
-}
-
-void Layer::recieve(int status)
-{
-}
-
-void Layer::notify(Layer& layer, int status)
-{
-}

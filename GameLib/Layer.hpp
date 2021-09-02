@@ -33,13 +33,6 @@ class Layer : public sf::Drawable, public sf::Transformable
 		/// 
 		////////////////////////////////////////////////////////////
 		void clean();
-
-
-		////////////////////////////////////////////////////////////
-		/// \brief specific implementaion detail of 
-		/// 
-		////////////////////////////////////////////////////////////
-		virtual int main();
 		
 		////////////////////////////////////////////////////////////
 		/// \brief Update every entity contained in this layer.
@@ -48,20 +41,18 @@ class Layer : public sf::Drawable, public sf::Transformable
 		int update();
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states);
-		void drawChildren(sf::RenderTarget& target, sf::RenderStates states);
-		
 		////////////////////////////////////////////////////////////
 		/// \brief Add an entity to this layer.
 		/// \param layer: the entity to add.
 		////////////////////////////////////////////////////////////
-		bool addEntity(Layer& layer);
+		bool addEntity(Layer* layer);
 
 		
 		////////////////////////////////////////////////////////////
 		/// \brief Remove an entity from this layer.
 		/// \param layer: the entity to remove.
 		////////////////////////////////////////////////////////////
-		bool removeEntity(Layer& layer);
+		bool removeEntity(Layer* layer);
 		
 		
 		////////////////////////////////////////////////////////////
@@ -70,7 +61,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		/// \param oldTag: the old tag to be removed. If null, then no tag from layer is removed. 
 		/// \param newTag: the new tag to be added. If null, then no new tag is given.
 		////////////////////////////////////////////////////////////
-		bool modifyEntityTag(Layer& layer, std::string& oldTag, std::string& newTag);
+		bool modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newTag);
 
 		////////////////////////////////////////////////////////////
 		/// \brief Recieve all tags with a given tag within this layer.
@@ -78,20 +69,26 @@ class Layer : public sf::Drawable, public sf::Transformable
 		////////////////////////////////////////////////////////////
 		const std::set<Layer>& getTag(std::string& tag);
 		
-		//
-		virtual void init();
+		////////////////////////////////////////////////////////////
+		/// \brief specific implementaion detail of 
+		/// 
+		////////////////////////////////////////////////////////////
+		virtual int main() = 0;
+		virtual void render(sf::RenderTarget& target, sf::RenderStates states) = 0;
+
+		virtual void init() = 0;
 		
 		// handle request
-		virtual void recieve(int status);
+		virtual void recieve(int status) = 0;
 		
 		// send request
-		virtual void notify(Layer& layer,int status);
+		virtual void notify(Layer* layer,int status) = 0;
 
 	private:
 		std::unordered_map<std::string, std::set<Layer>> entities;
-		std::vector<Layer> toUpdate;
-		std::queue<Layer> addEntityQueue;
-		std::queue<Layer> removeEntityQueue;
+		std::set<Layer*> toUpdate;
+		std::queue<Layer*> addEntityQueue;
+		std::queue<Layer*> removeEntityQueue;
 		Layer* parent;
 		void createEntities();
 		void destroyEntities();
