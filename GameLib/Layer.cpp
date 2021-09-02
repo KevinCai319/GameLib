@@ -69,8 +69,8 @@ void Layer::destroyEntities() {
 		Layer* garbageEntity = &removeEntityQueue.front();
 		if (!garbageEntity->tags.empty())
 		{
-			std::vector<std::string> tagsToBeAdded = garbageEntity->tags;
-			for (std::string tag : tagsToBeAdded)
+			std::vector<std::string> tagsToBeRemoved = garbageEntity->tags;
+			for (std::string tag : tagsToBeRemoved)
 			{
 				if (entities.count(tag) > 0)
 				{
@@ -86,8 +86,6 @@ void Layer::destroyEntities() {
 	}
 }
 
-
-
 bool Layer::addEntity(Layer& layer)
 {
 	this->addEntityQueue.push(layer);
@@ -100,14 +98,14 @@ bool Layer::removeEntity(Layer& layer)
 	return true;
 }
 
-bool Layer::modifyEntityTag(Layer& layer, std::string oldTag, std::string newTag)
+bool Layer::modifyEntityTag(Layer& layer, std::string& oldTag, std::string& newTag)
 {
 	return false;
 }
 
-std::set<Layer>* Layer::getTag(std::string tag)
+std::set<Layer>& Layer::getTag(std::string tag)
 {
-	return &entities[tag];
+	return entities[tag]; 
 }
 
 void Layer::init()

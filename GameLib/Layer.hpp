@@ -70,13 +70,13 @@ class Layer : public sf::Drawable, public sf::Transformable
 		/// \param oldTag: the old tag to be removed. If null, then no tag from layer is removed. 
 		/// \param newTag: the new tag to be added. If null, then no new tag is given.
 		////////////////////////////////////////////////////////////
-		bool modifyEntityTag(Layer& layer, std::string oldTag, std::string newTag);
+		bool modifyEntityTag(Layer& layer, std::string& oldTag, std::string& newTag);
 
 		////////////////////////////////////////////////////////////
 		/// \brief Recieve all tags with a given tag within this layer.
 		/// \param tag: the tag of the entities to be returned.
 		////////////////////////////////////////////////////////////
-		std::set<Layer>* getTag(std::string tag);
+		std::set<Layer>& getTag(std::string tag);
 		
 		//
 		virtual void init();
@@ -88,7 +88,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		virtual void notify(Layer& layer,int status);
 
 	private:
-		std::unordered_map<std::string, std::vector<Layer>> entities;
+		std::unordered_map<std::string, std::set<Layer>> entities;
 		std::vector<Layer> toUpdate;
 		std::queue<Layer> addEntityQueue;
 		std::queue<Layer> removeEntityQueue;
