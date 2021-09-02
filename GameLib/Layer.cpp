@@ -103,7 +103,7 @@ bool Layer::modifyEntityTag(Layer& layer, std::string& oldTag, std::string& newT
 	return false;
 }
 
-std::set<Layer>& Layer::getTag(std::string tag)
+std::set<Layer>& Layer::getTag(std::string& tag)
 {
 	return entities[tag]; 
 }
