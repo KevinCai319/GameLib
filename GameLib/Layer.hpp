@@ -76,7 +76,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		/// \brief Recieve all tags with a given tag within this layer.
 		/// \param tag: the tag of the entities to be returned.
 		////////////////////////////////////////////////////////////
-		std::set<Layer>& getTag(std::string tag);
+		std::set<Layer>& getTag(std::string& tag);
 		
 		//
 		virtual void init();
