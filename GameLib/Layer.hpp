@@ -21,7 +21,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		//used by a layer to skip an update call or not.
 		bool skipUpdate = false;
 		int status;
-		std::vector<std::string> tags;
+		const std::vector<std::string> tags;
 		////////////////////////////////////////////////////////////
 		/// \brief Create a new layer.
 		/// \param parent: the parent of this layer.
@@ -76,7 +76,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		/// \brief Recieve all tags with a given tag within this layer.
 		/// \param tag: the tag of the entities to be returned.
 		////////////////////////////////////////////////////////////
-		std::set<Layer>& getTag(std::string& tag);
+		const std::set<Layer>& getTag(std::string& tag);
 		
 		//
 		virtual void init();

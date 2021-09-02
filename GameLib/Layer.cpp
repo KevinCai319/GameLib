@@ -29,12 +29,12 @@ int Layer::update()
 
 void Layer::draw(sf::RenderTarget& target, sf::RenderStates states)
 {
-	
+
 }
 
 void Layer::drawChildren(sf::RenderTarget& target, sf::RenderStates states)
 {
-	for (std::vector<Layer> group : toUpdate) {
+	for (auto group : toUpdate) {
 		group.draw(target, states);
 	}
 }
@@ -103,7 +103,7 @@ bool Layer::modifyEntityTag(Layer& layer, std::string& oldTag, std::string& newT
 	return false;
 }
 
-std::set<Layer>& Layer::getTag(std::string& tag)
+const std::set<Layer>& Layer::getTag(std::string& tag)
 {
 	return entities[tag]; 
 }
