@@ -30,6 +30,7 @@ int Layer::update()
 
 void Layer::draw(sf::RenderTarget& target, sf::RenderStates states)
 {
+	states.transform *= getTransform();
 	for (Layer* group : toUpdate) {
 		group->draw(target, states);
 	}
