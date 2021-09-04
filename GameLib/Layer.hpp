@@ -2,13 +2,15 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
 #include <unordered_map>
 #include <unordered_set>
+#include <stdexcept>
 #include <set>
 #include <queue>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-
+typedef std::unique_ptr<Layer> layer_ptr;
 
 // Some notes about the layer class and traversing upwards/downwards:
 // - Ideally, there shouldn't be any kind of traversal upwards and then downards.
@@ -21,13 +23,13 @@ class Layer : public sf::Drawable, public sf::Transformable
 		//used by a layer to skip an update call or not.
 		bool skipUpdate = false;
 		int status;
-		const std::vector<std::string> tags;
+		std::vector<std::string> tags;
 		////////////////////////////////////////////////////////////
 		/// \brief Create a new layer.
 		/// \param parent: the parent of this layer.
 		////////////////////////////////////////////////////////////
 		Layer(Layer* parent);
-
+		Layer();
 		////////////////////////////////////////////////////////////
 		/// \brief handle important operations between frames.(add/delete/modify objects)
 		/// 
@@ -40,7 +42,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		////////////////////////////////////////////////////////////
 		int update();
 
-		void draw(sf::RenderTarget& target, sf::RenderStates states);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override ;
 		////////////////////////////////////////////////////////////
 		/// \brief Add an entity to this layer.
 		/// \param layer: the entity to add.
@@ -68,24 +70,24 @@ class Layer : public sf::Drawable, public sf::Transformable
 		/// \param tag: the tag of the entities to be returned.
 		////////////////////////////////////////////////////////////
 		const std::set<Layer>& getTag(std::string& tag);
+
+		Layer& getUniqueEntity(std::string& tag);
 		
 		////////////////////////////////////////////////////////////
 		/// \brief specific implementaion detail of 
 		/// 
 		////////////////////////////////////////////////////////////
 		virtual int main() = 0;
-		virtual void render(sf::RenderTarget& target, sf::RenderStates states) = 0;
-
-		virtual void init() = 0;
+		virtual void render(sf::RenderTarget& target, sf::RenderStates states)const = 0;
 		
 		// handle request
 		virtual void recieve(int status) = 0;
 		
 		// send request
-		virtual void notify(Layer* layer,int status) = 0;
+		virtual void notify(Layer& layer,int status) = 0;
 
 	private:
-		std::unordered_map<std::string, std::set<Layer>> entities;
+		std::unordered_map<std::string, std::set<Layer*>> entities;
 		std::set<Layer*> toUpdate;
 		std::queue<Layer*> addEntityQueue;
 		std::queue<Layer*> removeEntityQueue;

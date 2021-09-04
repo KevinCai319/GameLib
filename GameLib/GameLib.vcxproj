@@ -145,10 +145,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DemoHandler.cpp" />
     <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Handler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DemoHandler.hpp" />
     <ClInclude Include="Layer.hpp" />
+    <ClInclude Include="Handler.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,10 +1,13 @@
 #include "Layer.hpp"
 
+Layer::Layer()
+{
+}
+
 Layer::Layer(Layer* parent)
 {
 	this->parent = parent;
 	this->entities.clear();
-	this->init();
 }
 
 void Layer::clean()
@@ -20,7 +23,7 @@ int Layer::main()
 	return 0;
 }
 
-int Layer::update()
+int Layer::update() 
 {
 	clean();
 	//update everything else
@@ -28,8 +31,9 @@ int Layer::update()
 	return out;
 }
 
-void Layer::draw(sf::RenderTarget& target, sf::RenderStates states)
-{
+
+void Layer::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+
 	states.transform *= getTransform();
 	for (Layer* group : toUpdate) {
 		group->draw(target, states);
@@ -40,7 +44,7 @@ void Layer::draw(sf::RenderTarget& target, sf::RenderStates states)
 
 
 
-void Layer::createEntities() {
+void Layer::createEntities(){
 	while (!addEntityQueue.empty()) 
 	{
 		Layer* newEntity = addEntityQueue.front();
@@ -51,11 +55,11 @@ void Layer::createEntities() {
 			{
 				if (entities.count(tag) > 0) 
 				{
-					entities[tag].insert(*newEntity);
+					entities[tag].insert(newEntity);
 				}
 				else 
 				{
-					entities[tag] = std::set<Layer>();
+					entities[tag] = std::set<Layer >();
 					entities[tag].insert(*newEntity);
 				}
 			}
@@ -108,5 +112,14 @@ bool Layer::modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newT
 const std::set<Layer>& Layer::getTag(std::string& tag)
 {
 	return entities[tag]; 
+}
+
+Layer& Layer::getUniqueEntity(std::string& tag) 
+{
+	if (entities[tag].size() != 1) {
+		std::cout << "Asked for unique object of tag:" << tag << ", but found" << entities[tag].size() << "items.";
+		throw std::exception();
+	}
+	return const_cast<Layer>(*(entities[tag].begin()));
 }
 
