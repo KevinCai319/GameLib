@@ -21,7 +21,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		bool skipUpdate = false;
 		int status = 0;
 		std::vector<std::string> tags;
-		
+		~Layer();
 		Layer();
 		////////////////////////////////////////////////////////////
 		/// \brief Create a new layer.
