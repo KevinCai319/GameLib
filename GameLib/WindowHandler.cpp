@@ -29,6 +29,7 @@ int WindowHandler::main()
 		// Close window: exit
 		if (event.type == sf::Event::Closed) {
 			window->close();
+			delete window;
 			return 1;
 		}
 	}
