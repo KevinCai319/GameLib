@@ -4,11 +4,11 @@
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+#include <stdexcept>
 #include <set>
 #include <queue>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-
 
 // Some notes about the layer class and traversing upwards/downwards:
 // - Ideally, there shouldn't be any kind of traversal upwards and then downards.
@@ -16,18 +16,19 @@
 // - 2 entity updates might interfere with each other. This should be handled between the two entities.
 class Layer : public sf::Drawable, public sf::Transformable 
 {
-	
 	public:
 		//used by a layer to skip an update call or not.
 		bool skipUpdate = false;
-		int status;
-		const std::vector<std::string> tags;
+		int status = 0;
+		std::vector<std::string> tags;
+		~Layer();
+		Layer();
 		////////////////////////////////////////////////////////////
 		/// \brief Create a new layer.
 		/// \param parent: the parent of this layer.
 		////////////////////////////////////////////////////////////
-		Layer(Layer* parent);
-
+		Layer(Layer* parentLayer);
+		
 		////////////////////////////////////////////////////////////
 		/// \brief handle important operations between frames.(add/delete/modify objects)
 		/// 
@@ -40,7 +41,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		////////////////////////////////////////////////////////////
 		int update();
 
-		void draw(sf::RenderTarget& target, sf::RenderStates states);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override ;
 		////////////////////////////////////////////////////////////
 		/// \brief Add an entity to this layer.
 		/// \param layer: the entity to add.
@@ -54,7 +55,12 @@ class Layer : public sf::Drawable, public sf::Transformable
 		////////////////////////////////////////////////////////////
 		bool removeEntity(Layer* layer);
 		
-		
+		////////////////////////////////////////////////////////////
+		/// \brief Recieve all tags with a given tag within this layer.
+		/// \param tag: the tag of the entities to be returned.
+		////////////////////////////////////////////////////////////
+		const std::set<Layer*>& getTag(std::string& tag);
+
 		////////////////////////////////////////////////////////////
 		/// \brief Modify an entity's tag. Can be used to add/remove/replace a tag from an entity. 
 		/// \param layer: the layer to edit.
@@ -63,29 +69,20 @@ class Layer : public sf::Drawable, public sf::Transformable
 		////////////////////////////////////////////////////////////
 		bool modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newTag);
 
-		////////////////////////////////////////////////////////////
-		/// \brief Recieve all tags with a given tag within this layer.
-		/// \param tag: the tag of the entities to be returned.
-		////////////////////////////////////////////////////////////
-		const std::set<Layer>& getTag(std::string& tag);
-		
-		////////////////////////////////////////////////////////////
-		/// \brief specific implementaion detail of 
-		/// 
-		////////////////////////////////////////////////////////////
-		virtual int main() = 0;
-		virtual void render(sf::RenderTarget& target, sf::RenderStates states) = 0;
 
-		virtual void init() = 0;
+		Layer& getUniqueEntity(std::string& tag);
+		
+		virtual int main() = 0;
+		virtual void render(sf::RenderTarget& target, sf::RenderStates states)const = 0;
 		
 		// handle request
-		virtual void recieve(int status) = 0;
+		virtual int recieve(Layer& layer, int status) = 0;
 		
 		// send request
-		virtual void notify(Layer* layer,int status) = 0;
-
-	private:
-		std::unordered_map<std::string, std::set<Layer>> entities;
+		virtual void notify(Layer& layer,int status) = 0;
+		
+	protected:
+		std::unordered_map<std::string, std::set<Layer*>> entities;
 		std::set<Layer*> toUpdate;
 		std::queue<Layer*> addEntityQueue;
 		std::queue<Layer*> removeEntityQueue;

@@ -1,10 +1,17 @@
 #include "Layer.hpp"
 
-Layer::Layer(Layer* parent)
+Layer::~Layer()
 {
-	this->parent = parent;
+}
+
+Layer::Layer():Layer(nullptr)
+{
+}
+
+Layer::Layer(Layer* parentLayer) 
+{
+	this->parent = parentLayer;
 	this->entities.clear();
-	this->init();
 }
 
 void Layer::clean()
@@ -20,7 +27,7 @@ int Layer::main()
 	return 0;
 }
 
-int Layer::update()
+int Layer::update() 
 {
 	clean();
 	//update everything else
@@ -28,8 +35,9 @@ int Layer::update()
 	return out;
 }
 
-void Layer::draw(sf::RenderTarget& target, sf::RenderStates states)
-{
+
+void Layer::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+
 	states.transform *= getTransform();
 	for (Layer* group : toUpdate) {
 		group->draw(target, states);
@@ -40,7 +48,7 @@ void Layer::draw(sf::RenderTarget& target, sf::RenderStates states)
 
 
 
-void Layer::createEntities() {
+void Layer::createEntities(){
 	while (!addEntityQueue.empty()) 
 	{
 		Layer* newEntity = addEntityQueue.front();
@@ -49,15 +57,7 @@ void Layer::createEntities() {
 			std::vector<std::string> tagsToBeAdded = newEntity->tags;
 			for (std::string tag : tagsToBeAdded) 
 			{
-				if (entities.count(tag) > 0) 
-				{
-					entities[tag].insert(*newEntity);
-				}
-				else 
-				{
-					entities[tag] = std::set<Layer>();
-					entities[tag].insert(*newEntity);
-				}
+				entities[tag].insert(newEntity);
 			}
 			addEntityQueue.pop();
 		}
@@ -75,8 +75,8 @@ void Layer::destroyEntities() {
 			{
 				if (entities.count(tag) > 0)
 				{
-					entities[tag].erase(*garbageEntity);
-
+					entities[tag].erase(garbageEntity);
+					delete garbageEntity;
 				}
 				else
 				{
@@ -100,13 +100,23 @@ bool Layer::removeEntity(Layer* layer)
 	return true;
 }
 
+const std::set<Layer*>& Layer::getTag(std::string& tag)
+{
+	return entities[tag];
+}
+
 bool Layer::modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newTag)
 {
 	return false;
 }
 
-const std::set<Layer>& Layer::getTag(std::string& tag)
+Layer& Layer::getUniqueEntity(std::string& tag)
 {
-	return entities[tag]; 
+	if (entities[tag].size() != 1) {
+		std::cout << "Asked for unique object of tag:" << tag << ", but found" << entities[tag].size() << "items.";
+		throw std::exception();
+	}
+	return const_cast<Layer&> (**(entities[tag].begin()));
+
 }
 
