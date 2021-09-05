@@ -6,16 +6,10 @@ class Handler : public Layer{
 		Handler();
 		Handler(Layer* parent,std::string default_scene);
 		int main() override;
-		void render(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-		// handle request
-		void recieve(int status)override;
-
-		// send request
-		void notify(Layer& layer, int status)override;
-
-	private:
+		virtual void switchScene(std::string& newScene, Layer* active);
+	protected:
 		std::string running_scene;
 		std::string default_scene;
+		Layer* running;
 };
 

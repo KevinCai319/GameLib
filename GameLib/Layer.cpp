@@ -96,6 +96,11 @@ bool Layer::removeEntity(Layer* layer)
 	return true;
 }
 
+const std::set<Layer*>& Layer::getTag(std::string& tag)
+{
+	return entities[tag];
+}
+
 bool Layer::modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newTag)
 {
 	return false;

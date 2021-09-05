@@ -1,6 +1,8 @@
-#include "Handler.hpp"
+#include "CentralHandler.hpp"
 int main() {
-	Handler test;
-	while (test.update() == 0);
+	CentralHandler main;
+	while (main.update() == 0) {
+		//main.render();
+	}
 	return 0;
 }

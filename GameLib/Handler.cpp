@@ -1,6 +1,7 @@
 #include "Handler.hpp"
 
-Handler::Handler():Handler(nullptr,"default") {
+Handler::Handler():Handler(nullptr,"default") 
+{
 }
 
 Handler::Handler(Layer* parent, std::string default_scene):Layer(parent)
@@ -11,22 +12,26 @@ Handler::Handler(Layer* parent, std::string default_scene):Layer(parent)
 
 int Handler::main()
 {
-	if (running_scene.empty()) {
-		getUniqueEntity(running_scene).update();
+	if (running) 
+	{
+		int status = running->update();
+		if (status) 
+		{
+			int out = recieve(*running,status);
+			if (out) 
+			{
+				return out;
+			}
+		}
 	}
 	// No draw call here, as this can't draw anyting.
 	return 0;
 }
 
-void Handler::render(sf::RenderTarget& target, sf::RenderStates states) const
+void Handler::switchScene(std::string& newScene, Layer* active)
 {
+	addEntity(active);
+	createEntities();
+	this->running_scene = newScene;
 }
 
-
-void Handler::recieve(int status)
-{
-}
-
-void Handler::notify(Layer& layer, int status)
-{
-}
