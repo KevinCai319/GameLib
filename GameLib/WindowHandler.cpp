@@ -4,6 +4,7 @@
 WindowHandler::WindowHandler(int x, int y, std::string title) :Handler()
 {
 	window = new sf::RenderWindow(sf::VideoMode(x,y), title);
+	tags.push_back("Window");
 }
 
 void WindowHandler::render()
