@@ -1,12 +1,12 @@
 #include "Layer.hpp"
 
-Layer::Layer()
+Layer::Layer():Layer(nullptr)
 {
 }
 
-Layer::Layer(Layer* parent)
+Layer::Layer(Layer* parentLayer) 
 {
-	this->parent = parent;
+	this->parent = parentLayer;
 	this->entities.clear();
 }
 
@@ -53,15 +53,7 @@ void Layer::createEntities(){
 			std::vector<std::string> tagsToBeAdded = newEntity->tags;
 			for (std::string tag : tagsToBeAdded) 
 			{
-				if (entities.count(tag) > 0) 
-				{
-					entities[tag].insert(newEntity);
-				}
-				else 
-				{
-					entities[tag] = std::set<Layer >();
-					entities[tag].insert(*newEntity);
-				}
+				entities[tag].insert(newEntity);
 			}
 			addEntityQueue.pop();
 		}
@@ -79,8 +71,8 @@ void Layer::destroyEntities() {
 			{
 				if (entities.count(tag) > 0)
 				{
-					entities[tag].erase(*garbageEntity);
-
+					entities[tag].erase(garbageEntity);
+					delete garbageEntity;
 				}
 				else
 				{
@@ -109,17 +101,13 @@ bool Layer::modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newT
 	return false;
 }
 
-const std::set<Layer>& Layer::getTag(std::string& tag)
-{
-	return entities[tag]; 
-}
-
-Layer& Layer::getUniqueEntity(std::string& tag) 
+Layer& Layer::getUniqueEntity(std::string& tag)
 {
 	if (entities[tag].size() != 1) {
 		std::cout << "Asked for unique object of tag:" << tag << ", but found" << entities[tag].size() << "items.";
 		throw std::exception();
 	}
-	return const_cast<Layer>(*(entities[tag].begin()));
+	return const_cast<Layer&> (**(entities[tag].begin()));
+
 }
 

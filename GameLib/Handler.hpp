@@ -15,7 +15,7 @@ class Handler : public Layer{
 		void notify(Layer& layer, int status)override;
 
 	private:
-		std::string running_scene = nullptr;
-		std::string default_scene = nullptr;
+		std::string running_scene;
+		std::string default_scene;
 };
 

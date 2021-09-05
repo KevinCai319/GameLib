@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <string>
-#include <memory>
 #include <unordered_map>
 #include <unordered_set>
 #include <stdexcept>
@@ -10,7 +9,6 @@
 #include <queue>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-typedef std::unique_ptr<Layer> layer_ptr;
 
 // Some notes about the layer class and traversing upwards/downwards:
 // - Ideally, there shouldn't be any kind of traversal upwards and then downards.
@@ -18,18 +16,19 @@ typedef std::unique_ptr<Layer> layer_ptr;
 // - 2 entity updates might interfere with each other. This should be handled between the two entities.
 class Layer : public sf::Drawable, public sf::Transformable 
 {
-	
 	public:
 		//used by a layer to skip an update call or not.
 		bool skipUpdate = false;
-		int status;
+		int status = 0;
 		std::vector<std::string> tags;
+		
+		Layer();
 		////////////////////////////////////////////////////////////
 		/// \brief Create a new layer.
 		/// \param parent: the parent of this layer.
 		////////////////////////////////////////////////////////////
-		Layer(Layer* parent);
-		Layer();
+		Layer(Layer* parentLayer);
+		
 		////////////////////////////////////////////////////////////
 		/// \brief handle important operations between frames.(add/delete/modify objects)
 		/// 
@@ -65,11 +64,6 @@ class Layer : public sf::Drawable, public sf::Transformable
 		////////////////////////////////////////////////////////////
 		bool modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newTag);
 
-		////////////////////////////////////////////////////////////
-		/// \brief Recieve all tags with a given tag within this layer.
-		/// \param tag: the tag of the entities to be returned.
-		////////////////////////////////////////////////////////////
-		const std::set<Layer>& getTag(std::string& tag);
 
 		Layer& getUniqueEntity(std::string& tag);
 		

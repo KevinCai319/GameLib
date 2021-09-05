@@ -1,8 +1,6 @@
 #include "Handler.hpp"
 
-Handler::Handler():Handler(nullptr,nullptr)
-{
-	std::cout << "test\n";
+Handler::Handler():Handler(nullptr,"default") {
 }
 
 Handler::Handler(Layer* parent, std::string default_scene):Layer(parent)
@@ -13,7 +11,9 @@ Handler::Handler(Layer* parent, std::string default_scene):Layer(parent)
 
 int Handler::main()
 {
-	getUniqueEntity(running_scene).update();
+	if (running_scene.empty()) {
+		getUniqueEntity(running_scene).update();
+	}
 	// No draw call here, as this can't draw anyting.
 	return 0;
 }
