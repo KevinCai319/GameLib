@@ -25,6 +25,12 @@
     <Filter Include="Header Files\Debug">
       <UniqueIdentifier>{3f6b68e4-d6a8-4753-be15-23e57970bc9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{45d31636-d2d5-4d13-8c3c-4d98bc33aeb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{ee52727c-3118-4cb8-abed-d97da114fabe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Layer.hpp">
@@ -36,19 +42,22 @@
     <ClInclude Include="WindowHandler.hpp">
       <Filter>Header Files\Base</Filter>
     </ClInclude>
+    <ClInclude Include="Physical.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Layer.cpp">
       <Filter>Source Files\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Handler.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="WindowHandler.cpp">
       <Filter>Source Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Physical.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
