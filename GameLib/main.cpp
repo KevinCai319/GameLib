@@ -1,8 +1,8 @@
-#include "CentralHandler.hpp"
+#include "WindowHandler.hpp"
 int main() {
-	CentralHandler main;
+	WindowHandler main(1920,1080,"Demo");
 	while (main.update() == 0) {
-		//main.render();
+		main.render();
 	}
 	return 0;
 }

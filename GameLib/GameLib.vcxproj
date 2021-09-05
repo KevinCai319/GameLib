@@ -145,13 +145,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CentralHandler.cpp" />
+    <ClCompile Include="WindowHandler.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Handler.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CentralHandler.hpp" />
+    <ClInclude Include="WindowHandler.hpp" />
     <ClInclude Include="Layer.hpp" />
     <ClInclude Include="Handler.hpp" />
   </ItemGroup>

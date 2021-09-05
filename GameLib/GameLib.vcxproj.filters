@@ -33,7 +33,7 @@
     <ClInclude Include="Handler.hpp">
       <Filter>Header Files\Base</Filter>
     </ClInclude>
-    <ClInclude Include="CentralHandler.hpp">
+    <ClInclude Include="WindowHandler.hpp">
       <Filter>Header Files\Debug</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,7 +47,7 @@
     <ClCompile Include="Handler.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
-    <ClCompile Include="CentralHandler.cpp">
+    <ClCompile Include="WindowHandler.cpp">
       <Filter>Source Files\Debug</Filter>
     </ClCompile>
   </ItemGroup>
