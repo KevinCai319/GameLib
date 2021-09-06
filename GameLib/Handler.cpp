@@ -1,14 +1,18 @@
 #include "Handler.hpp"
 
-Handler::Handler():Handler(nullptr,"default") 
-{
-}
+Handler::Handler() :
+	Layer(nullptr),
+	running(nullptr),
+	defaultScene(""), 
+	runningScene("")
+{}
 
-Handler::Handler(Layer* parent, std::string default_scene):Layer(parent)
-{
-		this->default_scene = default_scene;
-		this->running_scene = default_scene;
-}
+Handler::Handler(Layer* parent, std::string& defaultScene) :
+	Layer(parent), 
+	running(nullptr),
+	defaultScene(defaultScene), 
+	runningScene(defaultScene)
+{}
 
 int Handler::main()
 {
@@ -30,8 +34,9 @@ int Handler::main()
 
 void Handler::switchScene(std::string& newScene, Layer* active)
 {
+	// TODO: what if a layer pointer is added twice?
 	addEntity(active);
 	createEntities();
-	this->running_scene = newScene;
+	this->runningScene = newScene;
 }
 
