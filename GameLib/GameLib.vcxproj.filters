@@ -31,6 +31,12 @@
     <Filter Include="Source Files\UI">
       <UniqueIdentifier>{7f5c3ddd-a9ad-4706-a43a-d94d94ce110d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\PongDemo">
+      <UniqueIdentifier>{ffde4e4c-293c-4f14-bf72-4c3919990a37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PongDemo">
+      <UniqueIdentifier>{ddc4e55a-7ed3-4883-b868-d2617c2035b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Layer.hpp">
@@ -47,6 +53,9 @@
     </ClInclude>
     <ClInclude Include="Button.hpp">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source Files\PongDemo</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

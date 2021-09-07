@@ -8,7 +8,10 @@ class Button:public Physical,public Layer
 	public:
 		Button();
 		Button(sf::RectangleShape hitbox);
+		Button(int x, int y, int w, int h);
 		~Button();
+		void setActivationFunction(void(*function)());
+		void setHoverFunction(void(*function)());
 		const sf::Shape& getShape()override;
 		virtual int main() override;
 		virtual void render(sf::RenderTarget& target, sf::RenderStates states)const override;
@@ -23,7 +26,7 @@ class Button:public Physical,public Layer
 		sf::RectangleShape hitbox;
 		bool isHovering;
 		bool isClicked;
-		void(*onActivated);
-		void(*onHover);
+		void (*onActivated)();
+		void (*onHover)();
 };
 

@@ -1,6 +1,6 @@
-#include "WindowHandler.hpp"
+#include "MainMenu.hpp"
 int main() {
-	WindowHandler main(1920, 1080, "Demo");
+	WindowHandler main(1920, 1080, "Pong");
 	while (main.update() == 0) {
 		main.render();
 	}
