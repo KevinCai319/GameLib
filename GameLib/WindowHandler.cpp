@@ -1,7 +1,7 @@
 #include "WindowHandler.hpp"
 
 //Setup main window and graphics reference.
-WindowHandler::WindowHandler(int x, int y, std::string& title) :
+WindowHandler::WindowHandler(int x, int y, const std::string& title) :
 	Handler(),
 	window(sf::VideoMode(x, y), title)
 {
