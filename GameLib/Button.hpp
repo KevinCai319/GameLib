@@ -2,6 +2,7 @@
 #include "Physical.hpp"
 #include "Layer.hpp"
 #include <SFML\Graphics\RectangleShape.hpp>
+#include <SFML\Window\Cursor.hpp>
 class Button:public Physical,public Layer
 {
 	public:
@@ -22,7 +23,7 @@ class Button:public Physical,public Layer
 		sf::RectangleShape hitbox;
 		bool isHovering;
 		bool isClicked;
-		void onActivated();
-		void onHover();
+		void(*onActivated);
+		void(*onHover);
 };
 

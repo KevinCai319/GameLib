@@ -2,9 +2,11 @@
 Button::Button():Button(sf::RectangleShape(sf::Vector2f(200.0f, 200.0f)))
 {
 }
-Button::Button(sf::RectangleShape hitbox):
+Button::Button(sf::RectangleShape hitbox) :
 	isClicked(false),
 	isHovering(false),
+	onActivated(nullptr),
+	onHover(nullptr),
 	hitbox(hitbox)
 {
 }
@@ -38,13 +40,10 @@ void Button::notify(Layer& layer, int status)
 
 bool Button::checkHover()
 {
+	sf::Vector2i cursor = sf::Mouse::getPosition();
+	std::cout << cursor.x<<","<<cursor.y << std::endl;
+	std::cout << "mouse position\n";
 	return false;
 }
 
-void Button::onActivated()
-{
-}
 
-void Button::onHover()
-{
-}
