@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Physical.cpp" />
     <ClCompile Include="WindowHandler.cpp" />
@@ -152,7 +153,8 @@
     <ClCompile Include="Handler.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Physical.h" />
+    <ClInclude Include="Button.hpp" />
+    <ClInclude Include="Physical.hpp" />
     <ClInclude Include="WindowHandler.hpp" />
     <ClInclude Include="Layer.hpp" />
     <ClInclude Include="Handler.hpp" />

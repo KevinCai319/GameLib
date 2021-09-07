@@ -19,17 +19,17 @@
     <Filter Include="Source Files\Base">
       <UniqueIdentifier>{554b7591-b35d-4eab-9d44-ce5d8178b866}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Debug">
-      <UniqueIdentifier>{7f5c3ddd-a9ad-4706-a43a-d94d94ce110d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Debug">
-      <UniqueIdentifier>{3f6b68e4-d6a8-4753-be15-23e57970bc9e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Physics">
       <UniqueIdentifier>{45d31636-d2d5-4d13-8c3c-4d98bc33aeb7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Physics">
       <UniqueIdentifier>{ee52727c-3118-4cb8-abed-d97da114fabe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{3f6b68e4-d6a8-4753-be15-23e57970bc9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{7f5c3ddd-a9ad-4706-a43a-d94d94ce110d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,8 +42,11 @@
     <ClInclude Include="WindowHandler.hpp">
       <Filter>Header Files\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Physical.h">
+    <ClInclude Include="Physical.hpp">
       <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.hpp">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

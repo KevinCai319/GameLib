@@ -28,16 +28,13 @@ int Handler::main()
 			}
 		}
 	}
-	// No draw call here, as this can't draw anyting.
 	return 0;
 }
 
 void Handler::switchScene(std::string& newScene, Layer* active)
 {
-	// TODO: what if a layer pointer is added twice?
 	if (&getUniqueEntity(newScene) == active) {
-		std::cout << "something bad happened";
-		throw std::exception("added sc");
+		throw std::exception("added duplicate scene");
 	}
 	addEntity(active);
 	createEntities();

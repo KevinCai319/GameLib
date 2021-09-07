@@ -3,8 +3,9 @@
 class Physical
 {
 	public:
-		virtual const sf::VertexArray getShape()const = 0;
-		virtual const bool isColliding()const = 0;
-	private:
+		virtual const sf::Shape& getShape() = 0;
+		virtual const bool isColliding(Physical& other);
+	protected:
+
 };
 
