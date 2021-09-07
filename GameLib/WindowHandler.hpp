@@ -12,7 +12,6 @@ class WindowHandler:public Handler
 		// send request
 		virtual void notify(Layer& layer, int status)override;
 	private:
-		// sf::RenderWindow* window;
 		sf::RenderWindow window;
 		
 };

@@ -35,6 +35,10 @@ int Handler::main()
 void Handler::switchScene(std::string& newScene, Layer* active)
 {
 	// TODO: what if a layer pointer is added twice?
+	if (&getUniqueEntity(newScene) == active) {
+		std::cout << "something bad happened";
+		throw std::exception("added sc");
+	}
 	addEntity(active);
 	createEntities();
 	this->runningScene = newScene;
