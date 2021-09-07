@@ -23,6 +23,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		std::vector<std::string> tags;
 		~Layer();
 		Layer();
+		void doNothing();
 		////////////////////////////////////////////////////////////
 		/// \brief Create a new layer.
 		/// \param parent: the parent of this layer.

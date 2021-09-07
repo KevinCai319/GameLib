@@ -10,14 +10,14 @@ Button::Button(int x, int y, int w, int h)
 	hitbox.setOutlineThickness(5);
 	isClicked = false;
 	isHovering = false;
-	onActivated = nullptr,
+	onClick = nullptr,
 	onHover = nullptr;
 }
 Button::Button(sf::RectangleShape hitbox) :
 	isClicked(false),
 	isHovering(false),
-	onActivated(nullptr),
-	onHover(nullptr),
+	onClick({}),
+	onHover({}),
 	hitbox(hitbox)
 {
 }
@@ -26,9 +26,9 @@ Button::~Button()
 {
 }
 
-void Button::setActivationFunction(void(*function)())
+void Button::setClickFunction(void(*function)())
 {
-	onActivated = function;
+	onClick = function;
 }
 
 void Button::setHoverFunction(void(*function)())
@@ -45,7 +45,10 @@ int Button::main()
 {
 	isHovering = checkHover();
 	if (isHovering) {
-		if(onHover)onHover();
+		onHover();
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			onClick();
+		}
 	}
 	
 	return 0;
@@ -62,6 +65,7 @@ int Button::recieve(Layer& layer, int status)
 
 void Button::notify(Layer& layer, int status)
 {
+	
 }
 
 bool Button::checkHover()

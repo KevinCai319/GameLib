@@ -8,6 +8,11 @@ Layer::Layer():Layer(nullptr)
 {
 }
 
+void Layer::doNothing()
+{
+	//hi.
+}
+
 Layer::Layer(Layer* parentLayer) 
 {
 	this->parent = parentLayer;

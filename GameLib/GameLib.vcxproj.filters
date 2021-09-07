@@ -55,7 +55,7 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="MainMenu.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\PongDemo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
