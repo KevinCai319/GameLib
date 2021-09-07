@@ -8,7 +8,7 @@ class Button:public Physical,public Layer
 	public:
 		Button();
 		Button(sf::RectangleShape hitbox);
-		Button(int x, int y, int w, int h);
+		Button(float x, float y, float w, float h);
 		~Button();
 		void setClickFunction(void(*function)());
 		void setHoverFunction(void(*function)());

@@ -2,7 +2,7 @@
 Button::Button():Button(sf::RectangleShape(sf::Vector2f(200.0f, 200.0f)))
 {
 }
-Button::Button(int x, int y, int w, int h)
+Button::Button(float x, float y, float w, float h)
 {
 	hitbox = sf::RectangleShape(sf::Vector2f(x, y));
 	hitbox.setSize(sf::Vector2f(w,h));
@@ -10,14 +10,14 @@ Button::Button(int x, int y, int w, int h)
 	hitbox.setOutlineThickness(5);
 	isClicked = false;
 	isHovering = false;
-	onClick = nullptr,
-	onHover = nullptr;
+	onClick = doNothing;
+	onHover = doNothing;
 }
 Button::Button(sf::RectangleShape hitbox) :
 	isClicked(false),
 	isHovering(false),
-	onClick({}),
-	onHover({}),
+	onClick(doNothing),
+	onHover(doNothing),
 	hitbox(hitbox)
 {
 }
