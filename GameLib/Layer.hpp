@@ -23,7 +23,6 @@ class Layer : public sf::Drawable, public sf::Transformable
 		std::vector<std::string> tags;
 		~Layer();
 		Layer();
-		static void doNothing();
 		////////////////////////////////////////////////////////////
 		/// \brief Create a new layer.
 		/// \param parent: the parent of this layer.
@@ -35,6 +34,10 @@ class Layer : public sf::Drawable, public sf::Transformable
 		/// 
 		////////////////////////////////////////////////////////////
 		void clean();
+		void linkParent(Layer* parent);
+		sf::Window* getScreen();
+		//can be called by extending classes if needed.
+		int updateChildren();
 		
 		////////////////////////////////////////////////////////////
 		/// \brief Update every entity contained in this layer.
@@ -43,6 +46,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		int update();
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override ;
+		void setScreen(sf::Window& screen);
 		////////////////////////////////////////////////////////////
 		/// \brief Add an entity to this layer.
 		/// \param layer: the entity to add.
@@ -75,11 +79,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		
 		virtual int main() = 0;
 		virtual void render(sf::RenderTarget& target, sf::RenderStates states)const = 0;
-		
-		// handle request
 		virtual int recieve(Layer& layer, int status) = 0;
-		
-		// send request
 		virtual void notify(Layer& layer,int status) = 0;
 		
 	protected:
@@ -87,7 +87,8 @@ class Layer : public sf::Drawable, public sf::Transformable
 		std::set<Layer*> toUpdate;
 		std::queue<Layer*> addEntityQueue;
 		std::queue<Layer*> removeEntityQueue;
-		Layer* parent;
+		Layer* parent = nullptr;
+		sf::Window* screen = nullptr;
 		void createEntities();
 		void destroyEntities();
 };

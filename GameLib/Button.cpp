@@ -1,25 +1,31 @@
 #include "Button.hpp"
 Button::Button():Button(sf::RectangleShape(sf::Vector2f(200.0f, 200.0f)))
 {
+	tags.push_back("Physical");
+	tags.push_back("Button");
 }
-Button::Button(float x, float y, float w, float h)
+Button::Button(float x, float y, float w, float h):
+	isClicked(false),
+	isHovering(false),
+	onClick(nullptr),
+	onHover(nullptr)
 {
-	hitbox = sf::RectangleShape(sf::Vector2f(x, y));
-	hitbox.setSize(sf::Vector2f(w,h));
+	hitbox = sf::RectangleShape(sf::Vector2f(w,h));
+	hitbox.setPosition(sf::Vector2f(x,y));
 	hitbox.setOutlineColor(sf::Color::Red);
 	hitbox.setOutlineThickness(5);
-	isClicked = false;
-	isHovering = false;
-	onClick = doNothing;
-	onHover = doNothing;
+	tags.push_back("Physical");
+	tags.push_back("Button");
 }
 Button::Button(sf::RectangleShape hitbox) :
 	isClicked(false),
 	isHovering(false),
-	onClick(doNothing),
-	onHover(doNothing),
+	onClick(nullptr),
+	onHover(nullptr),
 	hitbox(hitbox)
 {
+	tags.push_back("Physical");
+	tags.push_back("Button");
 }
 
 Button::~Button()
@@ -28,12 +34,14 @@ Button::~Button()
 
 void Button::setClickFunction(void(*function)())
 {
-	onClick = function;
+	if(function)onClick = function;
 }
 
+
+//TODO: Look at std::function or templates
 void Button::setHoverFunction(void(*function)())
 {
-	onHover = function;
+	if (function)onHover = function;
 }
 
 const sf::Shape& Button::getShape()
@@ -41,22 +49,25 @@ const sf::Shape& Button::getShape()
 	return hitbox;
 }
 
+
 int Button::main()
 {
-	isHovering = checkHover();
-	if (isHovering) {
-		onHover();
+	if (checkHover()) {
+		if(onHover)onHover();
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			onClick();
+			if(onClick)onClick();
 		}
+	} else {
+
 	}
-	
 	return 0;
 }
 
 void Button::render(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	target.draw(hitbox, states);
 }
+
 
 int Button::recieve(Layer& layer, int status)
 {
@@ -70,10 +81,7 @@ void Button::notify(Layer& layer, int status)
 
 bool Button::checkHover()
 {
-	sf::Vector2i cursor = sf::Mouse::getPosition();
-	std::cout << cursor.x<<","<<cursor.y << std::endl;
-	std::cout << "mouse position\n";
-	return false;
+	return hitbox.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(*screen).x, sf::Mouse::getPosition(*screen).y));
 }
 
 

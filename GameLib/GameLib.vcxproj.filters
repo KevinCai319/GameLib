@@ -57,6 +57,9 @@
     <ClInclude Include="MainMenu.hpp">
       <Filter>Header Files\PongDemo</Filter>
     </ClInclude>
+    <ClInclude Include="DemoHandler.hpp">
+      <Filter>Header Files\PongDemo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Layer.cpp">
@@ -78,6 +81,9 @@
       <Filter>Source Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="MainMenu.cpp">
+      <Filter>Source Files\PongDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoHandler.cpp">
       <Filter>Source Files\PongDemo</Filter>
     </ClCompile>
   </ItemGroup>

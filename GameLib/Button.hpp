@@ -13,7 +13,6 @@ class Button:public Physical,public Layer
 		void setClickFunction(void(*function)());
 		void setHoverFunction(void(*function)());
 		const sf::Shape& getShape()override;
-
 		virtual int main() override;
 		virtual void render(sf::RenderTarget& target, sf::RenderStates states)const override;
 

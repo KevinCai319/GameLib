@@ -6,6 +6,7 @@ WindowHandler::WindowHandler(int x, int y, const std::string& title) :
 	window(sf::VideoMode(x, y), title)
 {
 	tags.push_back("Window");
+	this->screen = &window;
 }
 
 void WindowHandler::render()
@@ -17,9 +18,10 @@ void WindowHandler::render()
 	}
 	window.display(); 
 }
+
 void WindowHandler::render(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	running->render(target, states);
+	running->draw(target, states);
 }
 
 int WindowHandler::main()
