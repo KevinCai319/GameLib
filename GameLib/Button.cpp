@@ -5,7 +5,7 @@ Button::Button():Button(sf::RectangleShape(sf::Vector2f(200.0f, 200.0f)))
 	tags.push_back("Button");
 }
 Button::Button(float x, float y, float w, float h):
-	isClicked(false),
+	isMouseDown(false),
 	isHovering(false),
 	onClick(nullptr),
 	onHover(nullptr)
@@ -18,7 +18,7 @@ Button::Button(float x, float y, float w, float h):
 	tags.push_back("Button");
 }
 Button::Button(sf::RectangleShape hitbox) :
-	isClicked(false),
+	isMouseDown(false),
 	isHovering(false),
 	onClick(nullptr),
 	onHover(nullptr),
@@ -28,9 +28,7 @@ Button::Button(sf::RectangleShape hitbox) :
 	tags.push_back("Button");
 }
 
-Button::~Button()
-{
-}
+
 
 void Button::setClickFunction(void(*function)())
 {
@@ -53,12 +51,12 @@ const sf::Shape& Button::getShape()
 int Button::main()
 {
 	if (checkHover()) {
-		if(onHover)onHover();
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-			if(onClick)onClick();
+		if(onHover != nullptr)onHover();
+		if (checkClick()) {
+			if(onClick != nullptr)onClick();
 		}
 	} else {
-
+		
 	}
 	return 0;
 }
@@ -81,7 +79,11 @@ void Button::notify(Layer& layer, int status)
 
 bool Button::checkHover()
 {
-	return hitbox.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(*screen).x, sf::Mouse::getPosition(*screen).y));
+	return isHovering = hitbox.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(*screen).x, sf::Mouse::getPosition(*screen).y));
+}
+bool Button::checkClick()
+{
+	return isMouseDown = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 }
 
 

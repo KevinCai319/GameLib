@@ -9,6 +9,8 @@ WindowHandler::WindowHandler(int x, int y, const std::string& title) :
 	this->screen = &window;
 }
 
+
+
 void WindowHandler::render()
 {
 	window.clear(); 

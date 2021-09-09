@@ -9,7 +9,6 @@ class Button:public Physical,public Layer
 		Button();
 		Button(sf::RectangleShape hitbox);
 		Button(float x, float y, float w, float h);
-		~Button();
 		void setClickFunction(void(*function)());
 		void setHoverFunction(void(*function)());
 		const sf::Shape& getShape()override;
@@ -22,10 +21,11 @@ class Button:public Physical,public Layer
 		// send request
 		virtual void notify(Layer& layer, int status) override;
 		bool checkHover();
+		bool checkClick();
 	private:
 		sf::RectangleShape hitbox;
 		bool isHovering;
-		bool isClicked;
+		bool isMouseDown;
 		void (*onClick)();
 		void (*onHover)();
 };

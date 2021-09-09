@@ -2,6 +2,10 @@
 
 Layer::~Layer()
 {
+	for (Layer* child : toUpdate) {
+		removeEntity(child);
+	}
+	destroyEntities();
 }
 
 Layer::Layer():Layer(nullptr)
@@ -25,7 +29,6 @@ void Layer::linkParent(Layer* parent)
 {
 	this->parent = parent;
 	screen = parent->getScreen();
-	std::cout << screen << std::endl;
 }
 sf::Window* Layer::getScreen()
 {
@@ -97,22 +100,22 @@ void Layer::destroyEntities() {
 	while (!removeEntityQueue.empty())
 	{
 		Layer* garbageEntity = removeEntityQueue.front();
-		if (!garbageEntity->tags.empty())
+		if (garbageEntity && !garbageEntity->tags.empty())
 		{
+			toUpdate.erase(garbageEntity);
 			std::vector<std::string> tagsToBeRemoved = garbageEntity->tags;
 			for (std::string tag : tagsToBeRemoved)
 			{
 				if (entities.count(tag) > 0)
 				{
 					entities[tag].erase(garbageEntity);
-					toUpdate.erase(garbageEntity);
-					delete garbageEntity;
 				}
 				else
 				{
 					std::cout << "Something really bad happened...\n";
 				}
 			}
+			delete garbageEntity;
 			removeEntityQueue.pop();
 		}
 	}
@@ -120,7 +123,6 @@ void Layer::destroyEntities() {
 
 bool Layer::addEntity(Layer* layer)
 {
-
 	this->addEntityQueue.push(layer);
 	return true;
 }

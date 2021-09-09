@@ -3,7 +3,6 @@
 MainMenu::MainMenu()
 {
 	tags.push_back("Menu");
-	
 	addEntity(new Button(400,400,100,100));
 }
 
