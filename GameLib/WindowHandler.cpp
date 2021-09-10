@@ -3,7 +3,7 @@
 //Setup main window and graphics reference.
 WindowHandler::WindowHandler(int x, int y, const std::string& title) :
 	Handler(),
-	window(sf::VideoMode(x, y), title)
+	window(sf::VideoMode(x, y), title, sf::Style::Fullscreen)
 {
 	tags.push_back("Window");
 	this->screen = &window;

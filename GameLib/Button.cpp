@@ -51,12 +51,13 @@ const sf::Shape& Button::getShape()
 int Button::main()
 {
 	if (checkHover()) {
+		hitbox.setOutlineColor(sf::Color::Red);
 		if(onHover != nullptr)onHover();
 		if (checkClick()) {
 			if(onClick != nullptr)onClick();
 		}
 	} else {
-		
+		hitbox.setOutlineColor(sf::Color::Green);
 	}
 	return 0;
 }
