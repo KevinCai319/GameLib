@@ -68,6 +68,7 @@ int Button::main()
 void Button::render(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(hitbox, states);
+	
 }
 
 

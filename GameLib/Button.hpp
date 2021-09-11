@@ -24,6 +24,8 @@ class Button:public Physical,public Layer
 		bool checkClick();
 	private:
 		sf::RectangleShape hitbox;
+		sf::Text text;
+		sf::Image image;
 		bool isHovering;
 		bool isMouseDown;
 		std::function<void()> onClick;
