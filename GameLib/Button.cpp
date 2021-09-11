@@ -1,9 +1,11 @@
 #include "Button.hpp"
+
 Button::Button():Button(sf::RectangleShape(sf::Vector2f(200.0f, 200.0f)))
 {
 	tags.push_back("Physical");
 	tags.push_back("Button");
 }
+
 Button::Button(float x, float y, float w, float h):
 	isMouseDown(false),
 	isHovering(false),
@@ -17,6 +19,7 @@ Button::Button(float x, float y, float w, float h):
 	tags.push_back("Physical");
 	tags.push_back("Button");
 }
+
 Button::Button(sf::RectangleShape hitbox) :
 	isMouseDown(false),
 	isHovering(false),
@@ -28,16 +31,12 @@ Button::Button(sf::RectangleShape hitbox) :
 	tags.push_back("Button");
 }
 
-
-
-void Button::setClickFunction(void(*function)())
+void Button::setClickFunction(std::function<void()> function)
 {
 	if(function)onClick = function;
 }
 
-
-//TODO: Look at std::function or templates
-void Button::setHoverFunction(void(*function)())
+void Button::setHoverFunction(std::function<void()> function)
 {
 	if (function)onHover = function;
 }
@@ -47,19 +46,23 @@ const sf::Shape& Button::getShape()
 	return hitbox;
 }
 
-
 int Button::main()
 {
-	if (checkHover()) {
+	status = 0;
+	if (checkHover()) 
+	{
 		hitbox.setOutlineColor(sf::Color::Red);
 		if(onHover != nullptr)onHover();
-		if (checkClick()) {
+		if (checkClick()) 
+		{
 			if(onClick != nullptr)onClick();
 		}
-	} else {
+	} 
+	else 
+	{
 		hitbox.setOutlineColor(sf::Color::Green);
 	}
-	return 0;
+	return status;
 }
 
 void Button::render(sf::RenderTarget& target, sf::RenderStates states) const
@@ -75,7 +78,7 @@ int Button::recieve(Layer& layer, int status)
 
 void Button::notify(Layer& layer, int status)
 {
-	
+	this->status = status;
 }
 
 bool Button::checkHover()

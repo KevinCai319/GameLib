@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <functional>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -19,77 +20,52 @@ class Layer : public sf::Drawable, public sf::Transformable
 	public:
 		//used by a layer to skip an update call or not.
 		bool skipUpdate = false;
-		int status = 0;
+		//List of all tags that this layer contains.
 		std::vector<std::string> tags;
-		~Layer();
+
+		//constructor/destructor
 		Layer();
-		////////////////////////////////////////////////////////////
-		/// \brief Create a new layer.
-		/// \param parent: the parent of this layer.
-		////////////////////////////////////////////////////////////
-		Layer(Layer* parentLayer);
+		~Layer();
 		
-		////////////////////////////////////////////////////////////
-		/// \brief handle important operations between frames.(add/delete/modify objects)
-		/// 
-		////////////////////////////////////////////////////////////
-		void clean();
+		//initalization functions(parent, window)
 		void linkParent(Layer* parent);
 		sf::Window* getScreen();
-		//can be called by extending classes if needed.
-		int updateChildren();
-		
-		////////////////////////////////////////////////////////////
-		/// \brief Update every entity contained in this layer.
-		/// \param parent: the parent of this layer.
-		////////////////////////////////////////////////////////////
+		void setScreen(sf::Window* screen);
+
+		//loop control functions
+		void refresh();
 		int update();
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override ;
-		void setScreen(sf::Window& screen);
-		////////////////////////////////////////////////////////////
-		/// \brief Add an entity to this layer.
-		/// \param layer: the entity to add.
-		////////////////////////////////////////////////////////////
+		
+		//Add/Remove functions
 		bool addEntity(Layer* layer);
-
-		
-		////////////////////////////////////////////////////////////
-		/// \brief Remove an entity from this layer.
-		/// \param layer: the entity to remove.
-		////////////////////////////////////////////////////////////
 		bool removeEntity(Layer* layer);
-		
-		////////////////////////////////////////////////////////////
-		/// \brief Recieve all tags with a given tag within this layer.
-		/// \param tag: the tag of the entities to be returned.
-		////////////////////////////////////////////////////////////
-		const std::set<Layer*>& getTag(std::string& tag);
 
-		////////////////////////////////////////////////////////////
-		/// \brief Modify an entity's tag. Can be used to add/remove/replace a tag from an entity. 
-		/// \param layer: the layer to edit.
-		/// \param oldTag: the old tag to be removed. If null, then no tag from layer is removed. 
-		/// \param newTag: the new tag to be added. If null, then no new tag is given.
-		////////////////////////////////////////////////////////////
+		//tag functions
+		const std::set<Layer*>& getTag(std::string& tag);
+		Layer& getUniqueEntity(std::string& tag);
 		bool modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newTag);
 
-
-		Layer& getUniqueEntity(std::string& tag);
-		
-		virtual int main() = 0;
-		virtual void render(sf::RenderTarget& target, sf::RenderStates states)const = 0;
-		virtual int recieve(Layer& layer, int status) = 0;
-		virtual void notify(Layer& layer,int status) = 0;
-		
 	protected:
+		//Collections of objects.
 		std::unordered_map<std::string, std::set<Layer*>> entities;
 		std::set<Layer*> toUpdate;
 		std::queue<Layer*> addEntityQueue;
 		std::queue<Layer*> removeEntityQueue;
-		Layer* parent = nullptr;
-		sf::Window* screen = nullptr;
+
+		Layer* parent;
+		sf::Window* screen;
+
+		//optional status variable which can be used by implementations.
+		int status = 0;
+
+		int updateChildren();
 		void createEntities();
 		void destroyEntities();
+		virtual int main();
+		virtual void render(sf::RenderTarget& target, sf::RenderStates states)const = 0;
+		virtual int recieve(Layer& layer, int status) = 0;
+		virtual void notify(Layer& layer, int status);
 };
 

@@ -1,39 +1,44 @@
 #include "Layer.hpp"
 
-Layer::~Layer()
-{
-	for (Layer* child : toUpdate) {
-		removeEntity(child);
-	}
-	destroyEntities();
-}
-
-Layer::Layer():Layer(nullptr)
+Layer::Layer() :parent(nullptr), screen(nullptr)
 {
 }
 
-Layer::Layer(Layer* parentLayer) 
-{
-	this->parent = parentLayer;
-	this->entities.clear();
-}
-
-void Layer::clean()
-{
-	//To be added stuff
-	createEntities();
-	//To be destroyed stuff
-	destroyEntities();
-}
-void Layer::linkParent(Layer* parent)
-{
-	this->parent = parent;
-	screen = parent->getScreen();
-}
 sf::Window* Layer::getScreen()
 {
 	return screen;
 }
+
+void Layer::setScreen(sf::Window* screen)
+{
+	this->screen = screen;
+}
+
+void Layer::linkParent(Layer* parent)
+{
+	this->parent = parent;
+	if (parent)screen = parent->getScreen();
+}
+
+void Layer::refresh()
+{
+	createEntities();
+	destroyEntities();
+}
+
+int Layer::update()
+{
+	status = 0;
+	refresh();
+	int out = main();
+	return out;
+}
+
+int Layer::main()
+{
+	return updateChildren();
+}
+
 int Layer::updateChildren() {
 	for (Layer* group : toUpdate)
 	{
@@ -49,44 +54,25 @@ int Layer::updateChildren() {
 	}
 	return 0;
 }
-int Layer::main()
-{
-	return updateChildren();
-}
 
-int Layer::update() 
-{
-	clean();
-	//update everything else
-	int out = main();
-	return out;
-}
-
-
-void Layer::draw(sf::RenderTarget& target, sf::RenderStates states) const{
+void Layer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 	states.transform *= getTransform();
-	for (Layer* group : toUpdate) {
+	for (const Layer* group : toUpdate) {
 		group->draw(target, states);
 	}
-	render(target,states);
+	render(target, states);
 }
 
-void Layer::setScreen(sf::Window& screen)
-{
-	this->screen = &screen;
-}
-
-
-void Layer::createEntities(){
-	while (!addEntityQueue.empty()) 
+void Layer::createEntities() {
+	while (!addEntityQueue.empty())
 	{
 		Layer* newEntity = addEntityQueue.front();
 		newEntity->linkParent(this);
-		if (!newEntity->tags.empty()) 
+		if (!newEntity->tags.empty())
 		{
 			std::vector<std::string> tagsToBeAdded = newEntity->tags;
-			for (std::string tag : tagsToBeAdded) 
+			for (std::string tag : tagsToBeAdded)
 			{
 				entities[tag].insert(newEntity);
 			}
@@ -96,13 +82,13 @@ void Layer::createEntities(){
 	}
 }
 
-void Layer::destroyEntities() {
+void Layer::destroyEntities() 
+{
 	while (!removeEntityQueue.empty())
 	{
 		Layer* garbageEntity = removeEntityQueue.front();
-		if (garbageEntity && !garbageEntity->tags.empty())
+		if (!garbageEntity->tags.empty())
 		{
-			toUpdate.erase(garbageEntity);
 			std::vector<std::string> tagsToBeRemoved = garbageEntity->tags;
 			for (std::string tag : tagsToBeRemoved)
 			{
@@ -115,9 +101,10 @@ void Layer::destroyEntities() {
 					std::cout << "Something really bad happened...\n";
 				}
 			}
-			delete garbageEntity;
+			//delete garbageEntity; USER MUST handle anything with new()!!!
 			removeEntityQueue.pop();
 		}
+		toUpdate.erase(garbageEntity);
 	}
 }
 
@@ -138,18 +125,39 @@ const std::set<Layer*>& Layer::getTag(std::string& tag)
 	return entities[tag];
 }
 
-bool Layer::modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newTag)
-{
-	return false;
-}
-
 Layer& Layer::getUniqueEntity(std::string& tag)
 {
-	if (entities[tag].size() != 1) {
-		std::cout << "Asked for unique object of tag:" << tag << ", but found" << entities[tag].size() << "items.";
-		throw std::exception();
+	if (entities[tag].size() != 1) 
+	{
+		throw	"Asked for unique object of tag:" + tag +
+			", but found" +
+			std::to_string(entities[tag].size()) +
+			"items.";
 	}
 	return const_cast<Layer&> (**(entities[tag].begin()));
-
 }
 
+bool Layer::modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newTag)
+{
+	if (!layer)throw "Modified tag for nullptr";
+	if (oldTag == newTag)return true;
+	entities[oldTag].erase(layer);
+	entities[newTag].insert(layer);
+	return true;
+}
+
+//This method will be called to prepare what to return to parent. 
+//This method will not directly interrupt parent.
+void Layer::notify(Layer& layer, int status) {
+	
+}
+
+Layer::~Layer()
+{
+	for (Layer* child : toUpdate) 
+	{
+		removeEntity(child);
+	}
+	destroyEntities();
+	tags.clear();
+}

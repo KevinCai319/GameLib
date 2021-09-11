@@ -1,10 +1,14 @@
 #include "DemoHandler.hpp"
-DemoHandler::DemoHandler(int x, int y, const std::string& title):WindowHandler(x,y,title)
+DemoHandler::DemoHandler(int x, int y, const std::string& title,Layer& menu):WindowHandler(x,y,title,menu)
 {
 	tags.push_back("Root");
-	MainMenu* menuScene = new MainMenu();
-	defaultScene = "Menu";
-	runningScene = "Menu";
-	running = menuScene;
-	addEntity(menuScene);
+}
+
+int DemoHandler::recieve(Layer& layer, int status)
+{
+	if (status <0)return status;//Error or exit state
+	if (status == 1){
+		std::cout << "go to instructions screen(WIP)" << std::endl;
+	}
+	return 0;
 }

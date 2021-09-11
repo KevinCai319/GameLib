@@ -1,31 +1,23 @@
 #include "Handler.hpp"
 
-Handler::Handler() :
-	Layer(nullptr),
-	running(nullptr),
-	defaultScene(""), 
-	runningScene("")
-{}
 
-Handler::Handler(Layer* parent, std::string& defaultScene) :
-	Layer(parent), 
-	running(nullptr),
-	defaultScene(defaultScene), 
-	runningScene(defaultScene)
-{}
+Handler::Handler(Layer& defaultScene):
+	running(defaultScene),
+	defaultScene(defaultScene.tags.front()),
+	runningScene(defaultScene.tags.front())
+{
+	addEntity(&defaultScene);
+}
 
 int Handler::main()
 {
-	if (running) 
+	int status = running.update();
+	if (status) 
 	{
-		int status = running->update();
-		if (status) 
+		int out = recieve(running,status);
+		if (out) 
 		{
-			int out = recieve(*running,status);
-			if (out) 
-			{
-				return out;
-			}
+			return out;
 		}
 	}
 	return 0;

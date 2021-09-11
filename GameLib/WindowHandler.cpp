@@ -1,29 +1,24 @@
 #include "WindowHandler.hpp"
 
 //Setup main window and graphics reference.
-WindowHandler::WindowHandler(int x, int y, const std::string& title) :
-	Handler(),
-	window(sf::VideoMode(x, y), title, sf::Style::Fullscreen)
+WindowHandler::WindowHandler(int x, int y, const std::string& title, Layer& defaultScene) :
+	Handler(defaultScene),
+	window(sf::VideoMode(x, y), title)
 {
 	tags.push_back("Window");
 	this->screen = &window;
 }
 
-
-
 void WindowHandler::render()
 {
 	window.clear(); 
-	if (running) 
-	{
-		render(window, sf::RenderStates::Default);
-	}
+	render(window, sf::RenderStates::Default);
 	window.display(); 
 }
 
 void WindowHandler::render(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	running->draw(target, states);
+	running.draw(target, states);
 }
 
 int WindowHandler::main()
@@ -46,7 +41,3 @@ int WindowHandler::recieve(Layer& layer, int status)
 	return 0;
 }
 
-//not used.
-void WindowHandler::notify(Layer& layer, int status)
-{
-}

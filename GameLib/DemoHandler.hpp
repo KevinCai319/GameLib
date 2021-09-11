@@ -4,6 +4,7 @@
 class DemoHandler : public WindowHandler
 {
 	public:
-		DemoHandler(int x, int y, const std::string& title);
+		DemoHandler(int x, int y, const std::string& title,Layer& menu);
+		virtual int recieve(Layer& layer, int status) override;
 };
 
