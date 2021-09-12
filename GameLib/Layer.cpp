@@ -82,7 +82,7 @@ void Layer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 	states.transform *= getTransform();
 	for (const Layer* group : toUpdate) {
-		group->draw(target, states);
+		target.draw(*group, states);
 	}
 	render(target, states);
 }
