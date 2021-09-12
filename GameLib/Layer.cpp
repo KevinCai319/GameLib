@@ -17,7 +17,14 @@ void Layer::setScreen(sf::Window* screen)
 void Layer::linkParent(Layer* parent)
 {
 	this->parent = parent;
-	if (parent)screen = parent->getScreen();
+	if (parent) 
+	{
+		screen = parent->getScreen();
+	}
+	else 
+	{
+		screen = nullptr;
+	}
 }
 
 void Layer::refresh()

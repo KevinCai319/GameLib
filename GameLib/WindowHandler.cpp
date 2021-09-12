@@ -39,7 +39,6 @@ int WindowHandler::main()
 
 int WindowHandler::recieve(Layer& layer, int status)
 {
-	if(stat)
 	return 0;
 }
 
