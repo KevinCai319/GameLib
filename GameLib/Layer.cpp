@@ -55,6 +55,21 @@ int Layer::updateChildren() {
 	return 0;
 }
 
+void Layer::killAll()
+{
+	killChildren();	
+	tags.clear();
+}
+void Layer::killChildren()
+{
+	for (Layer* child : toUpdate)
+	{
+		child->killChildren();
+		removeEntity(child);
+	}
+	destroyEntities();
+}
+
 void Layer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 	states.transform *= getTransform();
@@ -101,6 +116,7 @@ void Layer::destroyEntities()
 					std::cout << "Something really bad happened...\n";
 				}
 			}
+			garbageEntity->tags.clear();
 			//delete garbageEntity; USER MUST handle anything with new()!!!
 			removeEntityQueue.pop();
 		}
@@ -154,10 +170,5 @@ void Layer::notify(Layer& layer, int status) {
 
 Layer::~Layer()
 {
-	for (Layer* child : toUpdate) 
-	{
-		removeEntity(child);
-	}
-	destroyEntities();
-	tags.clear();
+	killAll();
 }

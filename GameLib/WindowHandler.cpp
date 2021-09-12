@@ -34,10 +34,12 @@ int WindowHandler::main()
 			return 1;
 		}
 	}
+	return 0;
 }
 
 int WindowHandler::recieve(Layer& layer, int status)
 {
+	if(stat)
 	return 0;
 }
 

@@ -27,7 +27,7 @@ void MainMenu::render(sf::RenderTarget& target, sf::RenderStates states) const
 int MainMenu::recieve(Layer& layer, int status)
 {
 	if (status == -1) {
-		std::cout << "working" << std::endl;
+		killAll();
 		return status;
 	}
 	return status;

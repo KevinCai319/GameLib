@@ -6,7 +6,10 @@ DemoHandler::DemoHandler(int x, int y, const std::string& title,Layer& menu):Win
 
 int DemoHandler::recieve(Layer& layer, int status)
 {
-	if (status <0)return status;//Error or exit state
+	if (status < 0) {
+		std::cout << "Exit" << std::endl;
+		return status;//Error or exit state
+	}
 	if (status == 1){
 		std::cout << "go to instructions screen(WIP)" << std::endl;
 	}

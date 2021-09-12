@@ -61,6 +61,8 @@ class Layer : public sf::Drawable, public sf::Transformable
 		int status = 0;
 
 		int updateChildren();
+		void killAll();
+		void killChildren();
 		void createEntities();
 		void destroyEntities();
 		virtual int main();
