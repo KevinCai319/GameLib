@@ -85,8 +85,8 @@ void Button::notify(Layer& layer, int status)
 bool Button::checkHover()
 {
 	sf::Vector2i pos = sf::Mouse::getPosition(*screen);
-	float px = 0.0f + sf::Mouse::getPosition(*screen).x;
-	float py = 0.0f + sf::Mouse::getPosition(*screen).y;
+	float px = 0.0f + pos.x;
+	float py = 0.0f + pos.y;
 	return isHovering = hitbox.getGlobalBounds().contains(sf::Vector2f(px,py));
 }
 bool Button::checkClick()
