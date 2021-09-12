@@ -163,7 +163,10 @@ Layer& Layer::getUniqueEntity(std::string& tag)
 
 bool Layer::modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newTag)
 {
-	if (!layer)throw "Modified tag for nullptr";
+	if (!layer) 
+	{
+		return false;
+	}
 	if (oldTag == newTag)return true;
 	entities[oldTag].erase(layer);
 	entities[newTag].insert(layer);
