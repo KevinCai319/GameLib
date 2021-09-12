@@ -67,6 +67,7 @@ void Layer::killAll()
 	killChildren();	
 	tags.clear();
 }
+
 void Layer::killChildren()
 {
 	for (Layer* child : toUpdate)
