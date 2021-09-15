@@ -12,13 +12,15 @@ WindowHandler::WindowHandler(int x, int y, const std::string& title, Layer& defa
 void WindowHandler::render()
 {
 	window.clear(); 
-	render(window, sf::RenderStates::Default);
+	// render(window, sf::RenderStates::Default);
+	window.draw(running, sf::RenderStates::Default); 
 	window.display(); 
 }
 
 void WindowHandler::render(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	running.draw(target, states);
+	// running.draw(target, states);
+	target.draw(running, states); 
 }
 
 int WindowHandler::main()

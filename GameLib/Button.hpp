@@ -1,34 +1,44 @@
 #pragma once
+
+#include <iostream>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+
 #include "Physical.hpp"
 #include "Layer.hpp"
-#include <SFML\Graphics\RectangleShape.hpp>
-#include <SFML\Window\Cursor.hpp>
+
 class Button:public Physical,public Layer
 {
 	public:
-		Button();
-		Button(sf::RectangleShape hitbox);
+		Button(const sf::RectangleShape& hitbox, const sf::Text& text);
+		Button(const sf::RectangleShape& hitbox); 
 		Button(float x, float y, float w, float h);
+		Button(); 
+
 		void setClickFunction(std::function<void()> function);
 		void setHoverFunction(std::function<void()> function);
+		void setText(const sf::Text& text); 
+
 		const sf::Shape& getShape()override;
+		const sf::Text& getText(); 
+
+		void alignTextLeft(); 
+		void alignTextCenter(); 
+		void alignTextRight(); 
+
 		virtual int main() override;
 		virtual void render(sf::RenderTarget& target, sf::RenderStates states)const override;
-
-		// handle request
 		virtual int recieve(Layer& layer, int status) override;
-
-		// send request
 		virtual void notify(Layer& layer, int status) override;
+
 		bool checkHover();
 		bool checkClick();
 	private:
 		sf::RectangleShape hitbox;
-		sf::Text text;
-		sf::Image image;
-		bool isHovering;
-		bool isMouseDown;
-		std::function<void()> onClick;
-		std::function<void()> onHover;
+		sf::Text text; 
+		bool isHovering = false;
+		bool isMouseDown = false;
+		std::function<void()> onClick = nullptr;
+		std::function<void()> onHover = nullptr;
 };
 

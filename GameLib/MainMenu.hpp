@@ -1,5 +1,5 @@
 #pragma once
-#include "layer.hpp"
+#include "Layer.hpp"
 class MainMenu : public Layer
 {
 	public:
