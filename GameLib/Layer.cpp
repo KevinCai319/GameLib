@@ -2,6 +2,7 @@
 
 Layer::Layer() :parent(nullptr), screen(nullptr)
 {
+	timer.restart(); 
 }
 
 sf::Window* Layer::getScreen()
@@ -27,6 +28,16 @@ void Layer::linkParent(Layer* parent)
 	}
 }
 
+void Layer::setFramerate(unsigned int framerate)
+{
+	this->framerate = framerate; 
+}
+
+unsigned int Layer::getFramerate()
+{
+	return framerate; 
+}
+
 void Layer::refresh()
 {
 	createEntities();
@@ -35,10 +46,14 @@ void Layer::refresh()
 
 int Layer::update()
 {
-	status = 0;
-	refresh();
-	int out = main();
-	return out;
+	if (timer.getElapsedTime().asSeconds() >= 1.f / framerate)
+	{
+		status = 0;
+		refresh();
+		int out = main();
+		return out;
+	}
+	return 0; 
 }
 
 int Layer::main()
@@ -178,7 +193,8 @@ bool Layer::modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newT
 
 //This method will be called to prepare what to return to parent. 
 //This method will not directly interrupt parent.
-void Layer::notify(Layer& layer, int status) {
+void Layer::notify(Layer& layer, int status) 
+{
 	
 }
 

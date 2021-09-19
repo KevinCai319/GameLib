@@ -25,32 +25,29 @@ MainMenu::MainMenu()
 			playButton->notify(*this, 2);
 		});
 
-	sf::Text* text1 = new sf::Text("Play Game", *ft);
-	text1->setFillColor(sf::Color::Blue); 
-	text1->setCharacterSize(36); 
-	playButton->setText(*text1); 
+	sf::Text text1 ("Play Game", *ft); 
+	text1.setFillColor(sf::Color::Blue); 
+	text1.setCharacterSize(36); 
+	playButton->setText(text1); 
 	playButton->alignTextCenter(); 
 
-	sf::Text* text2 = new sf::Text("Instructions", *ft);
-	text2->setFillColor(sf::Color::Blue); 
-	text2->setCharacterSize(36); 
-	instructionsButton->setText(*text2); 
+	sf::Text text2 ("Instructions", *ft);
+	text2.setFillColor(sf::Color::Blue); 
+	text2.setCharacterSize(36); 
+	instructionsButton->setText(text2); 
 	instructionsButton->alignTextCenter(); 
 
-	sf::Text* text3 = new sf::Text("Exit", *ft);
-	text3->setFillColor(sf::Color::Blue); 
-	text3->setCharacterSize(36); 
-	exitButton->setText(*text3); 
+	sf::Text text3 ("Exit", *ft);
+	text3.setFillColor(sf::Color::Blue); 
+	text3.setCharacterSize(36); 
+	exitButton->setText(text3); 
 	exitButton->alignTextCenter(); 
 
 	addEntity(playButton);
 	addEntity(instructionsButton);
 	addEntity(exitButton);
-	delete text1; 
-	delete text2; 
-	delete text3;
-	// TODO: memory leak
-	//delete ft; 
+
+	// TODO: MAJOR MEMORY LEAK - free the font
 }
 
 

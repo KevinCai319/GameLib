@@ -32,6 +32,10 @@ class Layer : public sf::Drawable, public sf::Transformable
 		sf::Window* getScreen();
 		void setScreen(sf::Window* screen);
 
+		// framerate functions
+		unsigned int getFramerate(); 
+		void setFramerate(unsigned int framerate); 
+
 		//loop control functions
 		void refresh();
 		int update();
@@ -57,6 +61,9 @@ class Layer : public sf::Drawable, public sf::Transformable
 		Layer* parent;
 		sf::Window* screen;
 
+		unsigned int framerate = 60; 
+		sf::Clock timer; 
+		
 		//optional status variable which can be used by implementations.
 		int status = 0;
 
@@ -69,5 +76,6 @@ class Layer : public sf::Drawable, public sf::Transformable
 		virtual void render(sf::RenderTarget& target, sf::RenderStates states)const;
 		virtual int recieve(Layer& layer, int status) = 0;
 		virtual void notify(Layer& layer, int status);
+
 };
 
