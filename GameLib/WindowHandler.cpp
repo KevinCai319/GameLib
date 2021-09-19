@@ -1,7 +1,7 @@
 #include "WindowHandler.hpp"
 
 //Setup main window and graphics reference.
-WindowHandler::WindowHandler(int x, int y, const std::string& title, Layer& defaultScene) :
+WindowHandler::WindowHandler(int x, int y, const std::string& title, Layer* defaultScene) :
 	Handler(defaultScene),
 	window(sf::VideoMode(x, y), title)
 {
@@ -11,16 +11,16 @@ WindowHandler::WindowHandler(int x, int y, const std::string& title, Layer& defa
 
 void WindowHandler::render()
 {
-	window.clear(); 
-	// render(window, sf::RenderStates::Default);
-	window.draw(running, sf::RenderStates::Default); 
+	window.clear();
+	if (running) {
+		window.draw(*running, sf::RenderStates::Default);
+	}
 	window.display(); 
 }
 
 void WindowHandler::render(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	// running.draw(target, states);
-	target.draw(running, states); 
+	target.draw(*running, states); 
 }
 
 int WindowHandler::main()

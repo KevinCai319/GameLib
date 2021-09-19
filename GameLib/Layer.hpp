@@ -44,7 +44,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 
 		//tag functions
 		const std::set<Layer*>& getTag(std::string& tag);
-		Layer& getUniqueEntity(std::string& tag);
+		Layer& getUniqueEntity(const std::string& tag);
 		bool modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newTag);
 
 	protected:
@@ -66,7 +66,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		void createEntities();
 		void destroyEntities();
 		virtual int main();
-		virtual void render(sf::RenderTarget& target, sf::RenderStates states)const = 0;
+		virtual void render(sf::RenderTarget& target, sf::RenderStates states)const;
 		virtual int recieve(Layer& layer, int status) = 0;
 		virtual void notify(Layer& layer, int status);
 };

@@ -60,6 +60,15 @@
     <ClInclude Include="DemoHandler.hpp">
       <Filter>Header Files\PongDemo</Filter>
     </ClInclude>
+    <ClInclude Include="Pong.hpp">
+      <Filter>Header Files\PongDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="Paddle.hpp">
+      <Filter>Header Files\PongDemo</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.hpp">
+      <Filter>Header Files\PongDemo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Layer.cpp">
@@ -84,6 +93,15 @@
       <Filter>Source Files\PongDemo</Filter>
     </ClCompile>
     <ClCompile Include="DemoHandler.cpp">
+      <Filter>Source Files\PongDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="Paddle.cpp">
+      <Filter>Source Files\PongDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="Pong.cpp">
+      <Filter>Source Files\PongDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
       <Filter>Source Files\PongDemo</Filter>
     </ClCompile>
   </ItemGroup>

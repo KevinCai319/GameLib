@@ -1,20 +1,20 @@
 #include "Handler.hpp"
 
 
-Handler::Handler(Layer& defaultScene):
+Handler::Handler(Layer* defaultScene):
 	running(defaultScene),
-	defaultScene(defaultScene.tags.front()),
-	runningScene(defaultScene.tags.front())
+	defaultScene(defaultScene->tags.front()),
+	runningScene(defaultScene->tags.front())
 {
-	addEntity(&defaultScene);
+	addEntity(defaultScene);
 }
 
 int Handler::main()
 {
-	int status = running.update();
+	int status = running->update();
 	if (status) 
 	{
-		int out = recieve(running,status);
+		int out = recieve(*running,status);
 		if (out) 
 		{
 			return out;
@@ -23,13 +23,19 @@ int Handler::main()
 	return 0;
 }
 
-void Handler::switchScene(std::string& newScene, Layer* active)
+void Handler::switchScene(Layer* active)
 {
-	if (&getUniqueEntity(newScene) == active) {
+	if (running == active) {
 		throw std::exception("added duplicate scene");
 	}
+	removeEntity(running);
+	destroyEntities();
 	addEntity(active);
 	createEntities();
-	this->runningScene = newScene;
+	running = active;
+	runningScene = running->tags.front();
+}
+Handler::~Handler() {
+	//delete running;
 }
 

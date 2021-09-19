@@ -86,7 +86,9 @@ void Layer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	}
 	render(target, states);
 }
+void Layer::render(sf::RenderTarget& target, sf::RenderStates states)const {
 
+}
 void Layer::createEntities() {
 	while (!addEntityQueue.empty())
 	{
@@ -124,11 +126,12 @@ void Layer::destroyEntities()
 					std::cout << "Something really bad happened...\n";
 				}
 			}
-			garbageEntity->tags.clear();
-			//delete garbageEntity; USER MUST handle anything with new()!!!
+			//garbageEntity->tags.clear();
+			delete garbageEntity;
 			removeEntityQueue.pop();
 		}
 		toUpdate.erase(garbageEntity);
+		
 	}
 }
 
@@ -149,7 +152,7 @@ const std::set<Layer*>& Layer::getTag(std::string& tag)
 	return entities[tag];
 }
 
-Layer& Layer::getUniqueEntity(std::string& tag)
+Layer& Layer::getUniqueEntity(const std::string& tag)
 {
 	if (entities[tag].size() != 1) 
 	{
@@ -181,5 +184,8 @@ void Layer::notify(Layer& layer, int status) {
 
 Layer::~Layer()
 {
+	//const std::string type = (tags.empty())?"NULL":tags.back();
+	//std::cout << "trying to delete:{"<< type << std::endl;
 	killAll();
+	//std::cout << "}deleted " <<type<< " successfully!" << std::endl;
 }

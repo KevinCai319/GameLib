@@ -20,47 +20,45 @@ MainMenu::MainMenu()
 		{
 			instructionsButton->notify(*this, 1);
 		});
+	playButton->setClickFunction([this, playButton]()
+		{
+			playButton->notify(*this, 2);
+		});
 
-	sf::Text* text1 = new sf::Text("Kevin sucks", *ft);
+	sf::Text* text1 = new sf::Text("Play Game", *ft);
 	text1->setFillColor(sf::Color::Blue); 
 	text1->setCharacterSize(36); 
 	playButton->setText(*text1); 
 	playButton->alignTextCenter(); 
 
-	sf::Text* text2 = new sf::Text("Greg is cool", *ft);
+	sf::Text* text2 = new sf::Text("Instructions", *ft);
 	text2->setFillColor(sf::Color::Blue); 
 	text2->setCharacterSize(36); 
 	instructionsButton->setText(*text2); 
-	instructionsButton->alignTextLeft(); 
+	instructionsButton->alignTextCenter(); 
 
-	sf::Text* text3 = new sf::Text("Impeach Pratham", *ft);
+	sf::Text* text3 = new sf::Text("Exit", *ft);
 	text3->setFillColor(sf::Color::Blue); 
 	text3->setCharacterSize(36); 
 	exitButton->setText(*text3); 
-	exitButton->alignTextRight(); 
+	exitButton->alignTextCenter(); 
 
 	addEntity(playButton);
 	addEntity(instructionsButton);
 	addEntity(exitButton);
-
 	delete text1; 
 	delete text2; 
 	delete text3;
 	// TODO: memory leak
-	// delete ft; 
+	//delete ft; 
 }
 
-
-void MainMenu::render(sf::RenderTarget& target, sf::RenderStates states) const
-{
-}
 
 int MainMenu::recieve(Layer& layer, int status)
 {
 	if (status == -1) {
-		killAll();
 		return status;
-	}
+	}		
 	return status;
 }
 

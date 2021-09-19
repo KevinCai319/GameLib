@@ -3,7 +3,7 @@
 class WindowHandler:public Handler
 {
 	public:
-		WindowHandler(int x, int y, const std::string& title, Layer& defaultScene);
+		WindowHandler(int x, int y, const std::string& title, Layer* defaultScene);
 		void render();
 		virtual void render(sf::RenderTarget& target, sf::RenderStates states)const override;
 		int main() override;

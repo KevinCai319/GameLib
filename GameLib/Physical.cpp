@@ -1,6 +1,11 @@
 #include "Physical.hpp"
 
 
+const sf::FloatRect& Physical::getAABB()
+{
+    return getShape().getGlobalBounds();
+}
+
 float Physical::dotProduct(sf::Vector2f p0, sf::Vector2f p1)
 {
     return (p0.x * p1.x) + (p0.y * p1.y);
@@ -30,5 +35,10 @@ const bool Physical::isColliding(Physical& other)
         //TODO: get this working
         return true;
     }
+    return false;
+}
+
+bool Physical::isABBBColling(sf::FloatRect a, sf::FloatRect b)
+{
     return false;
 }
