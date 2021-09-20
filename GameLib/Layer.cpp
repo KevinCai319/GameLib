@@ -48,6 +48,7 @@ int Layer::update()
 {
 	if (timer.getElapsedTime().asSeconds() >= 1.f / framerate)
 	{
+		timer.restart(); 
 		status = 0;
 		refresh();
 		int out = main();

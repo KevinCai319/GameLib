@@ -4,7 +4,7 @@ Paddle::Paddle(int x, int y, int yMin, int yMax, sf::Keyboard::Key up, sf::Keybo
 	yMin(yMin),
 	yMax(yMax),
 	box(sf::RectangleShape(sf::Vector2f(20, (yMax - yMin) / 4))),
-	velocity(1),
+	velocity(10),
 	up(up),
 	down(down)
 {
