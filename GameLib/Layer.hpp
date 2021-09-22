@@ -43,9 +43,9 @@ class Layer : public sf::Drawable, public sf::Transformable
 		bool removeEntity(Layer* layer);
 
 		//tag functions
-		const std::set<Layer*>& getTag(std::string& tag);
+		const std::set<Layer*>& getTag(const std::string& tag);
 		Layer& getUniqueEntity(const std::string& tag);
-		bool modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newTag);
+		bool modifyEntityTag(Layer* layer, const std::string& oldTag, const std::string& newTag);
 
 	protected:
 		//Collections of objects.

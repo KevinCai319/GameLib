@@ -1,6 +1,11 @@
 #include "Physical.hpp"
 
 
+Physical::Physical()
+{
+    tags.push_back("Physical");
+}
+
 const sf::FloatRect& Physical::getAABB()
 {
     return getShape().getGlobalBounds();

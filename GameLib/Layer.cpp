@@ -147,7 +147,7 @@ bool Layer::removeEntity(Layer* layer)
 	return true;
 }
 
-const std::set<Layer*>& Layer::getTag(std::string& tag)
+const std::set<Layer*>& Layer::getTag(const std::string& tag)
 {
 	return entities[tag];
 }
@@ -164,7 +164,7 @@ Layer& Layer::getUniqueEntity(const std::string& tag)
 	return const_cast<Layer&> (**(entities[tag].begin()));
 }
 
-bool Layer::modifyEntityTag(Layer* layer, std::string& oldTag, std::string& newTag)
+bool Layer::modifyEntityTag(Layer* layer, const std::string& oldTag, const std::string& newTag)
 {
 	if (!layer) 
 	{

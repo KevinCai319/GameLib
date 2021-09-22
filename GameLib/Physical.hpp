@@ -1,8 +1,10 @@
 #pragma once
+#include "Layer.hpp"
 #include <SFML/Graphics.hpp>
-class Physical
+class Physical:public Layer
 {
 	public:
+		Physical();
 		virtual const sf::Shape& getShape() = 0;
 		virtual const sf::FloatRect& getAABB();
 		float dotProduct(sf::Vector2f p0, sf::Vector2f p1);

@@ -7,7 +7,7 @@
 #include "Physical.hpp"
 #include "Layer.hpp"
 
-class Button:public Physical,public Layer
+class Button:public Physical
 {
 	public:
 		Button(const sf::RectangleShape& hitbox, const sf::Text& text);
