@@ -14,9 +14,11 @@ class Button:public Physical
 		Button(const sf::RectangleShape& hitbox); 
 		Button(float x, float y, float w, float h);
 		Button(); 
+		~Button(); 
 
 		void setClickFunction(std::function<void()> function);
 		void setHoverFunction(std::function<void()> function);
+		void setShape(const sf::RectangleShape& hitbox); 
 		void setText(const sf::Text& text); 
 
 		const sf::Shape& getShape()override;
@@ -34,8 +36,8 @@ class Button:public Physical
 		bool checkHover();
 		bool checkClick();
 	private:
-		sf::RectangleShape hitbox;
-		sf::Text text; 
+		sf::Shape* m_hitbox = nullptr; 
+		sf::Text* m_text = nullptr; 
 		bool isHovering = false;
 		bool isMouseDown = false;
 		std::function<void()> onClick = nullptr;
