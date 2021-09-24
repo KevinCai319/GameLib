@@ -1,37 +1,37 @@
 #include "Button.hpp"
 
-Button::Button(const sf::RectangleShape& hitbox, const sf::Text& text)
+Button::Button(const sf::RectangleShape& hitbox, const sf::Text& text) : 
+	Physical::Physical()
 {
 	m_hitbox = new sf::RectangleShape(hitbox); 
 	m_text = new sf::Text(text); 
 	alignTextCenter(); 
-	tags.push_back("Physical");
-	tags.push_back("Button");
+	tags.insert("Button");
 }
 
-Button::Button(const sf::RectangleShape& hitbox) 
+Button::Button(const sf::RectangleShape& hitbox) : 
+	Physical::Physical()
 {
 	m_hitbox = new sf::RectangleShape(hitbox); 
-	tags.push_back("Physical"); 
-	tags.push_back("Button"); 
+	tags.insert("Button"); 
 }
 
-Button::Button(float x, float y, float w, float h) 
+Button::Button(float x, float y, float w, float h) : 
+	Physical::Physical()
 {
 	m_hitbox = new sf::RectangleShape(sf::Vector2f(w, h)); 
 	m_hitbox->setPosition(sf::Vector2f(x, y)); 
 	m_hitbox->setOutlineColor(sf::Color::Red); 
 	m_hitbox->setOutlineThickness(20); 
-	tags.push_back("Physical"); 
-	tags.push_back("Button"); 
+	tags.insert("Button"); 
 }
 
-Button::Button()
+Button::Button() : 
+	Physical::Physical()
 {
 	m_hitbox = new sf::RectangleShape(sf::Vector2f(200.f, 200.f)); 
 	m_hitbox->setPosition(0.f, 0.f); 
-	tags.push_back("Physical"); 
-	tags.push_back("Button"); 
+	tags.insert("Button"); 
 }
 
 Button::~Button()
@@ -145,6 +145,7 @@ bool Button::checkHover()
 	float py = 0.0f + pos.y;
 	return isHovering = m_hitbox->getGlobalBounds().contains(sf::Vector2f(px,py));
 }
+
 bool Button::checkClick()
 {
 	return isMouseDown = sf::Mouse::isButtonPressed(sf::Mouse::Left);

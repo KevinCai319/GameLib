@@ -21,7 +21,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		//used by a layer to skip an update call or not.
 		bool skipUpdate = false;
 		//List of all tags that this layer contains.
-		std::vector<std::string> tags;
+		std::set<std::string> tags; 
 
 		//constructor/destructor
 		Layer();
@@ -32,13 +32,9 @@ class Layer : public sf::Drawable, public sf::Transformable
 		sf::Window* getScreen();
 		void setScreen(sf::Window* screen);
 
-		// framerate functions
-		unsigned int getFramerate(); 
-		void setFramerate(unsigned int framerate); 
-
 		//loop control functions
 		void refresh();
-		int update();
+		virtual int update();
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override ;
 		
@@ -58,11 +54,8 @@ class Layer : public sf::Drawable, public sf::Transformable
 		std::queue<Layer*> addEntityQueue;
 		std::queue<Layer*> removeEntityQueue;
 
-		Layer* parent;
-		sf::Window* screen;
-
-		unsigned int framerate = 60; 
-		sf::Clock timer; 
+		Layer* parent = nullptr;
+		sf::Window* screen = nullptr;
 		
 		//optional status variable which can be used by implementations.
 		int status = 0;

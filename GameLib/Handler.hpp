@@ -8,6 +8,7 @@ class Handler : public Layer{
 		int main() override;
 		virtual void switchScene(Layer* active);
 	protected:
+		// TODO: make these by reference
 		std::string runningScene;
 		std::string defaultScene;
 		Layer* running;

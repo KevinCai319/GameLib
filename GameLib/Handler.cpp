@@ -3,8 +3,8 @@
 
 Handler::Handler(Layer* defaultScene):
 	running(defaultScene),
-	defaultScene(defaultScene->tags.front()),
-	runningScene(defaultScene->tags.front())
+	defaultScene(*defaultScene->tags.begin()),
+	runningScene(*defaultScene->tags.begin())
 {
 	addEntity(defaultScene);
 }
@@ -33,7 +33,7 @@ void Handler::switchScene(Layer* active)
 	addEntity(active);
 	createEntities();
 	running = active;
-	runningScene = running->tags.front();
+	runningScene = *running->tags.begin();
 }
 Handler::~Handler() {
 	//delete running;

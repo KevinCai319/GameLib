@@ -1,10 +1,5 @@
 #include "Layer.hpp"
 
-Layer::Layer() :parent(nullptr), screen(nullptr)
-{
-	timer.restart(); 
-}
-
 sf::Window* Layer::getScreen()
 {
 	return screen;
@@ -28,16 +23,6 @@ void Layer::linkParent(Layer* parent)
 	}
 }
 
-void Layer::setFramerate(unsigned int framerate)
-{
-	this->framerate = framerate; 
-}
-
-unsigned int Layer::getFramerate()
-{
-	return framerate; 
-}
-
 void Layer::refresh()
 {
 	createEntities();
@@ -46,15 +31,10 @@ void Layer::refresh()
 
 int Layer::update()
 {
-	if (timer.getElapsedTime().asSeconds() >= 1.f / framerate)
-	{
-		timer.restart(); 
-		status = 0;
-		refresh();
-		int out = main();
-		return out;
-	}
-	return 0; 
+	status = 0;
+	refresh();
+	int out = main();
+	return out;
 }
 
 int Layer::main()

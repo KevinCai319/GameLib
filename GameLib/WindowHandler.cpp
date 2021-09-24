@@ -5,7 +5,7 @@ WindowHandler::WindowHandler(int x, int y, const std::string& title, Layer* defa
 	Handler(defaultScene),
 	window(sf::VideoMode(x, y), title)
 {
-	tags.push_back("Window");
+	tags.insert("Window");
 	this->screen = &window;
 }
 

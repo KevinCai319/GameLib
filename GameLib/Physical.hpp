@@ -1,6 +1,6 @@
 #pragma once
-#include "Layer.hpp"
 #include <SFML/Graphics.hpp>
+#include "Layer.hpp"
 class Physical:public Layer
 {
 	public:

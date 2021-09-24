@@ -8,7 +8,6 @@ int Ball::main()
 {
 	box.move(velocity);
 	std::set<Layer*> solids = parent->getTag("Physical");
-
 	return status;
 }
 
