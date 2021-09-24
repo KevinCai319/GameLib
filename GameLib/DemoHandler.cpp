@@ -1,7 +1,7 @@
 #include "DemoHandler.hpp"
 DemoHandler::DemoHandler(int x, int y, const std::string& title,Layer* menu):WindowHandler(x,y,title,menu)
 {
-	tags.insert("Root");
+	tags.push_back("Root");
 }
 
 int DemoHandler::recieve(Layer& layer, int status)

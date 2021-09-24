@@ -9,7 +9,7 @@ Paddle::Paddle(float x, float y, int yMin, int yMax, sf::Keyboard::Key up, sf::K
 	down(down),
 	box(sf::RectangleShape(sf::Vector2f(20.0f, (yMax - yMin) / 4.0f)))
 {
-	Layer::tags.insert("Paddle");
+	Layer::tags.push_back("Paddle");
 	box.setPosition(x,y);
 	box.setOutlineColor(sf::Color::Red);
 	box.setOutlineThickness(20);

@@ -2,7 +2,7 @@
 
 Physical::Physical() 
 {
-    tags.insert("Physical");
+    tags.push_back("Physical");
 }
 
 const sf::FloatRect Physical::getAABB()

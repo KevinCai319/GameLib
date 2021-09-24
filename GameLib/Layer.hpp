@@ -21,7 +21,7 @@ class Layer : public sf::Drawable, public sf::Transformable
 		//used by a layer to skip an update call or not.
 		bool skipUpdate = false;
 		//List of all tags that this layer contains.
-		std::set<std::string> tags; 
+		std::vector<std::string> tags; 
 
 		//constructor/destructor
 		Layer();

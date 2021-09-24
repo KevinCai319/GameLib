@@ -2,7 +2,7 @@
 #include "Button.hpp"
 MainMenu::MainMenu()
 {
-	tags.insert("Menu");
+	tags.push_back("Menu");
 	sf::Font* ft = new sf::Font();
 	if (!ft->loadFromFile("Assets\\Roboto-Regular.ttf"))
 	{
