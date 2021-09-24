@@ -6,14 +6,14 @@ Button::Button(const sf::RectangleShape& hitbox, const sf::Text& text) :
 	m_hitbox = new sf::RectangleShape(hitbox); 
 	m_text = new sf::Text(text); 
 	alignTextCenter(); 
-	tags.push_back("Button");
+	tags.insert("Button");
 }
 
 Button::Button(const sf::RectangleShape& hitbox) : 
 	Physical::Physical()
 {
 	m_hitbox = new sf::RectangleShape(hitbox); 
-	tags.push_back("Button"); 
+	tags.insert("Button"); 
 }
 
 Button::Button(float x, float y, float w, float h) : 
@@ -23,7 +23,7 @@ Button::Button(float x, float y, float w, float h) :
 	m_hitbox->setPosition(sf::Vector2f(x, y)); 
 	m_hitbox->setOutlineColor(sf::Color::Red); 
 	m_hitbox->setOutlineThickness(20); 
-	tags.push_back("Button"); 
+	tags.insert("Button"); 
 }
 
 Button::Button() : 
@@ -31,7 +31,7 @@ Button::Button() :
 {
 	m_hitbox = new sf::RectangleShape(sf::Vector2f(200.f, 200.f)); 
 	m_hitbox->setPosition(0.f, 0.f); 
-	tags.push_back("Button"); 
+	tags.insert("Button"); 
 }
 
 Button::~Button()

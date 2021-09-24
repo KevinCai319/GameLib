@@ -13,7 +13,7 @@ int TimedLayer::main()
 	if (res) return res;
 	std::set<Layer*> timed = Layer::getTag("Timed");
 	for (Layer* t : timed) {
-		res = dynamic_cast<Timed*>(t)->main(time); 
+		res = ((Timed*)t)->main(time);
 		if (res) return res;
 	}
 	time = timer.getElapsedTime();

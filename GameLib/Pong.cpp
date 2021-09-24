@@ -1,7 +1,7 @@
 #include "Pong.hpp"
 
 Pong::Pong(){
-	tags.push_back("Game");
+	tags.insert("Game");
 	sf::Font* scoreFont = new sf::Font();
 	if (!scoreFont->loadFromFile("Assets\\Roboto-Regular.ttf"))
 	{
