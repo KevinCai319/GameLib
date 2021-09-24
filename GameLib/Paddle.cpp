@@ -9,7 +9,7 @@ Paddle::Paddle(float x, float y, int yMin, int yMax, sf::Keyboard::Key up, sf::K
 	down(down),
 	box(sf::RectangleShape(sf::Vector2f(20.0f, (yMax - yMin) / 4.0f)))
 {
-	Layer::tags.insert("Paddle");
+	tags.insert("Paddle");
 	box.setPosition(x,y);
 	box.setOutlineColor(sf::Color::Red);
 	box.setOutlineThickness(20);
@@ -18,10 +18,12 @@ Paddle::Paddle(float x, float y, int yMin, int yMax, sf::Keyboard::Key up, sf::K
 int Paddle::main(sf::Time dt) {
 	if (sf::Keyboard::isKeyPressed(up))
 	{
+		std::cout << "dt: " << dt.asSeconds() << std::endl; 
 		box.move(sf::Vector2f(0, -velocity * dt.asSeconds()));
 	}
 	if (sf::Keyboard::isKeyPressed(down))
 	{
+		std::cout << "dt: " << dt.asSeconds() << std::endl; 
 		box.move(sf::Vector2f(0, velocity * dt.asSeconds()));
 	}
 	return 0;

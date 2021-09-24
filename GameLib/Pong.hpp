@@ -1,7 +1,7 @@
 #pragma once
-#include "Layer.hpp"
+#include "TimedLayer.hpp"
 #include "Paddle.hpp"
-class Pong : public Layer
+class Pong : public TimedLayer
 {
 	public:
 		Pong();

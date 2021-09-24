@@ -10,7 +10,7 @@ class Paddle : public Physical, public Timed
 		virtual void render(sf::RenderTarget& target, sf::RenderStates states) const override;
 		virtual const sf::Shape& getShape() override;
 		virtual const sf::FloatRect getAABB() override;
-		int velocity = 1;//1px/sec
+		int velocity = 1000;//1px/sec
 	protected:
 		int yMin, yMax;
 		sf::Keyboard::Key up, down;

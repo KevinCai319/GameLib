@@ -1,5 +1,10 @@
 #include "Layer.hpp"
 
+Layer::Layer()
+{
+
+}
+
 sf::Window* Layer::getScreen()
 {
 	return screen;
