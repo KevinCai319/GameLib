@@ -92,7 +92,7 @@ void Layer::createEntities() {
 		newEntity->linkParent(this);
 		if (!newEntity->tags.empty())
 		{
-			std::vector<std::string> tagsToBeAdded = newEntity->tags;
+			std::set<std::string> tagsToBeAdded = newEntity->tags;
 			for (std::string tag : tagsToBeAdded)
 			{
 				entities[tag].insert(newEntity);
@@ -110,7 +110,7 @@ void Layer::destroyEntities()
 		Layer* garbageEntity = removeEntityQueue.front();
 		if (!garbageEntity->tags.empty())
 		{
-			std::vector<std::string> tagsToBeRemoved = garbageEntity->tags;
+			std::set<std::string> tagsToBeRemoved = garbageEntity->tags;
 			for (std::string tag : tagsToBeRemoved)
 			{
 				if (entities.count(tag) > 0)

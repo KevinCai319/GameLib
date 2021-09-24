@@ -16,8 +16,6 @@ Paddle::Paddle(float x, float y, int yMin, int yMax, sf::Keyboard::Key up, sf::K
 }
 
 int Paddle::main(sf::Time dt) {
-	Layer::refresh();
-	int out = Layer::main();
 	if (sf::Keyboard::isKeyPressed(up))
 	{
 		box.move(sf::Vector2f(0, -velocity * dt.asSeconds()));
@@ -26,7 +24,7 @@ int Paddle::main(sf::Time dt) {
 	{
 		box.move(sf::Vector2f(0, velocity * dt.asSeconds()));
 	}
-	return out;
+	return 0;
 }
 
 void Paddle::render(sf::RenderTarget& target, sf::RenderStates states) const
