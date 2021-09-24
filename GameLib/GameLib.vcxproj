@@ -146,6 +146,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+	<ClCompile Include="Timed.cpp" />
+	<ClCompile Include="TimedLayer.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="DemoHandler.cpp" />
@@ -159,6 +161,8 @@
     <ClCompile Include="Handler.cpp" />
   </ItemGroup>
   <ItemGroup>
+	<ClCompile Include="Timed.hpp" />
+	<ClCompile Include="TimedLayer.hpp" />
     <ClInclude Include="Ball.hpp" />
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="DemoHandler.hpp" />

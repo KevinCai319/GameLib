@@ -104,5 +104,23 @@
     <ClCompile Include="Ball.cpp">
       <Filter>Source Files\PongDemo</Filter>
     </ClCompile>
+    <ClInclude Include="Timed.hpp">
+      <Filter>Source Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="TimedLayer.hpp">
+      <Filter>Source Files\Base</Filter>
+    </ClInclude>
+    <ClCompile Include="Timed.hpp">
+      <Filter>Header Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="TimedLayer.hpp">
+      <Filter>Header Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Timed.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="TimedLayer.cpp">
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

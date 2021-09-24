@@ -17,12 +17,12 @@ void Ball::render(sf::RenderTarget& target, sf::RenderStates states) const
 
 const sf::Shape& Ball::getShape()
 {
-	// TODO: insert return statement here
+	return box;
 }
 
-const sf::FloatRect& Ball::getAABB()
+const sf::FloatRect Ball::getAABB()
 {
-	// TODO: insert return statement here
+	return box.getLocalBounds();
 }
 
 void Ball::notify(Layer& layer, int status)

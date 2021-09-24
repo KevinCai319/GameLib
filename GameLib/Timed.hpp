@@ -1,6 +1,6 @@
 #pragma once
 #include "Layer.hpp"
-class Timed : public Layer
+class Timed : public virtual Layer
 {
 public: 
 	Timed(); 

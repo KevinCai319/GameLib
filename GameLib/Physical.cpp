@@ -5,7 +5,7 @@ Physical::Physical()
     tags.insert("Physical");
 }
 
-const sf::FloatRect& Physical::getAABB()
+const sf::FloatRect Physical::getAABB()
 {
     return getShape().getGlobalBounds();
 }
@@ -15,7 +15,7 @@ float Physical::dotProduct(sf::Vector2f p0, sf::Vector2f p1)
     return (p0.x * p1.x) + (p0.y * p1.y);
 }
 std::vector<sf::Vector2f> Physical::getAxis(const sf::Shape& shape) {
-    const int length = shape.getPointCount();
+    const size_t length = shape.getPointCount();
     std::vector <sf::Vector2f> axes;
     for (int i = 0; i < length;i++) {
         sf::Vector2f p0 = shape.getPoint(i);
@@ -28,12 +28,12 @@ std::vector<sf::Vector2f> Physical::getAxis(const sf::Shape& shape) {
 const bool Physical::isColliding(Physical& other)
 {
     //estimate collision
-    bool est = other.getShape().getGlobalBounds().intersects(getShape().getGlobalBounds());
+    bool est = other.getAABB().intersects(getAABB());
     if (est) {
         return true; //TODO:remove this
         const sf::Shape& otherBound = other.getShape();
         const sf::Shape& myBound = getShape();
-        int otherSize = otherBound.getPointCount();
+        size_t otherSize = otherBound.getPointCount();
         std::vector<sf::Vector2f> p0a = getAxis(myBound);
         std::vector<sf::Vector2f> p1a = getAxis(otherBound);
         //TODO: get this working

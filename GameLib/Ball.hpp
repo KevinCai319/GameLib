@@ -7,7 +7,7 @@ class Ball :public Physical{
 		int main() override;
 		void render(sf::RenderTarget& target, sf::RenderStates states)const override;
 		virtual const sf::Shape& getShape() override;
-		virtual const sf::FloatRect& getAABB() override;
+		virtual const sf::FloatRect getAABB() override;
 		int pscore=0;
 	private:
 		sf::RectangleShape box;

@@ -5,7 +5,7 @@ class TimedLayer : public Layer
 {
 private: 
 	sf::Clock timer; 
-
+	sf::Time time;
 public: 
 	TimedLayer(); 
 	virtual int main() override; 

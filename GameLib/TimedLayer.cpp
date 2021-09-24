@@ -3,22 +3,20 @@
 
 TimedLayer::TimedLayer()
 {
-	timer.restart(); 
+	timer.restart();
 }
 
 int TimedLayer::main()
 {
-	for (Layer* group : toUpdate)
-	{
-		if (group->tags.find("Timed") != group->tags.end())
-		{
-			Timed* timedGroup = (Timed*)group; 
-			timedGroup->main(timer.getElapsedTime());
-		}
-		else
-		{
-			group->update(); 
-		}
+	timer.restart();
+	int res = Layer::main();
+	if (res) return res;
+	std::set<Layer*> timed = Layer::getTag("Timed");
+	for (Layer* t : timed) {
+		Timed* timedGroup = (Timed*)t;
+		res = timedGroup->main(time);
+		if (res) return res;
 	}
-	timer.restart(); 
+	time = timer.getElapsedTime();
+	return 0;
 }
