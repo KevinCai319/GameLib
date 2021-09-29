@@ -18,11 +18,11 @@ void Layer::setScreen(sf::Window* screen)
 void Layer::linkParent(Layer* parent)
 {
 	this->parent = parent;
-	if (parent) 
+	if (parent)
 	{
 		screen = parent->getScreen();
 	}
-	else 
+	else
 	{
 		screen = nullptr;
 	}
@@ -65,7 +65,7 @@ int Layer::updateChildren() {
 
 void Layer::killAll()
 {
-	killChildren();	
+	killChildren();
 	tags.clear();
 }
 
@@ -82,7 +82,7 @@ void Layer::killChildren()
 void Layer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 	states.transform *= getTransform();
-	for (const Layer* group : toUpdate) {
+	for (const Layer* group : toRender) {
 		target.draw(*group, states);
 	}
 	render(target, states);
@@ -90,25 +90,31 @@ void Layer::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 void Layer::render(sf::RenderTarget& target, sf::RenderStates states)const {
 
 }
+int Layer::recieve(Layer& layer, int status)
+{
+	return 0;
+}
 void Layer::createEntities() {
 	while (!addEntityQueue.empty())
 	{
 		Layer* newEntity = addEntityQueue.front();
 		newEntity->linkParent(this);
+		toRender[newEntity->renderPriority]=;
 		if (!newEntity->tags.empty())
 		{
-			std::set<std::string> tagsToBeAdded = newEntity->tags;
+			std::vector<std::string> tagsToBeAdded = newEntity->tags;
 			for (std::string tag : tagsToBeAdded)
 			{
-				entities[tag].insert(newEntity);
+				entities[tag].push_back(newEntity);
+				newEntity->updateIndex(tag,entities[tag].size());
 			}
 		}
-		toUpdate.insert(newEntity);
+		toUpdate.push_back(newEntity);
 		addEntityQueue.pop();
 	}
 }
 
-void Layer::destroyEntities() 
+void Layer::destroyEntities()
 {
 	while (!removeEntityQueue.empty())
 	{
@@ -127,12 +133,11 @@ void Layer::destroyEntities()
 					std::cout << "Something really bad happened...\n";
 				}
 			}
-			//garbageEntity->tags.clear();
-			delete garbageEntity;
 			removeEntityQueue.pop();
 		}
 		toUpdate.erase(garbageEntity);
-		
+		remove(toRender.begin(), toRender.end(), garbageEntity);
+
 	}
 }
 
@@ -148,14 +153,20 @@ bool Layer::removeEntity(Layer* layer)
 	return true;
 }
 
-const std::set<Layer*>& Layer::getTag(const std::string& tag)
+bool Layer::updateIndex(std::string str, int i)
+{
+	positions[str] = i;
+	return true;
+}
+
+const std::vector<Layer*>& Layer::getTag(const std::string& tag)
 {
 	return entities[tag];
 }
 
 Layer& Layer::getUniqueEntity(const std::string& tag)
 {
-	if (entities[tag].size() != 1) 
+	if (entities[tag].size() != 1)
 	{
 		throw	"Asked for unique object of tag:" + tag +
 			", but found" +
@@ -167,21 +178,22 @@ Layer& Layer::getUniqueEntity(const std::string& tag)
 
 bool Layer::modifyEntityTag(Layer* layer, const std::string& oldTag, const std::string& newTag)
 {
-	if (!layer) 
+	if (!layer)
 	{
 		return false;
 	}
 	if (oldTag == newTag)return true;
-	entities[oldTag].erase(layer);
-	entities[newTag].insert(layer);
+	std::vector<Layer*>old = entities[oldTag];
+	remove(old.begin(),old.end(),layer);
+	entities[newTag].push_back(layer);
 	return true;
 }
 
 //This method will be called to prepare what to return to parent. 
 //This method will not directly interrupt parent.
-void Layer::notify(Layer& layer, int status) 
+void Layer::notify(Layer& layer, int status)
 {
-	
+
 }
 
 Layer::~Layer()

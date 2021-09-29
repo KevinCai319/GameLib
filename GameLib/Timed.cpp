@@ -2,5 +2,6 @@
 
 Timed::Timed()
 {
-	tags.insert("Timed"); 
+	tags.insert("Timed");
 }
+

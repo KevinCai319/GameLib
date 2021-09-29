@@ -31,12 +31,6 @@
     <Filter Include="Source Files\UI">
       <UniqueIdentifier>{7f5c3ddd-a9ad-4706-a43a-d94d94ce110d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\PongDemo">
-      <UniqueIdentifier>{ffde4e4c-293c-4f14-bf72-4c3919990a37}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\PongDemo">
-      <UniqueIdentifier>{ddc4e55a-7ed3-4883-b868-d2617c2035b9}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Layer.hpp">
@@ -54,20 +48,11 @@
     <ClInclude Include="Button.hpp">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenu.hpp">
-      <Filter>Header Files\PongDemo</Filter>
+    <ClInclude Include="TimedLayer.hpp">
+      <Filter>Header Files\Base</Filter>
     </ClInclude>
-    <ClInclude Include="DemoHandler.hpp">
-      <Filter>Header Files\PongDemo</Filter>
-    </ClInclude>
-    <ClInclude Include="Pong.hpp">
-      <Filter>Header Files\PongDemo</Filter>
-    </ClInclude>
-    <ClInclude Include="Paddle.hpp">
-      <Filter>Header Files\PongDemo</Filter>
-    </ClInclude>
-    <ClInclude Include="Ball.hpp">
-      <Filter>Header Files\PongDemo</Filter>
+    <ClInclude Include="Timed.hpp">
+      <Filter>Header Files\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -88,33 +73,6 @@
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>Source Files\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Source Files\PongDemo</Filter>
-    </ClCompile>
-    <ClCompile Include="DemoHandler.cpp">
-      <Filter>Source Files\PongDemo</Filter>
-    </ClCompile>
-    <ClCompile Include="Paddle.cpp">
-      <Filter>Source Files\PongDemo</Filter>
-    </ClCompile>
-    <ClCompile Include="Pong.cpp">
-      <Filter>Source Files\PongDemo</Filter>
-    </ClCompile>
-    <ClCompile Include="Ball.cpp">
-      <Filter>Source Files\PongDemo</Filter>
-    </ClCompile>
-    <ClInclude Include="Timed.hpp">
-      <Filter>Source Files\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="TimedLayer.hpp">
-      <Filter>Source Files\Base</Filter>
-    </ClInclude>
-    <ClCompile Include="Timed.hpp">
-      <Filter>Header Files\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="TimedLayer.hpp">
-      <Filter>Header Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="Timed.cpp">
       <Filter>Source Files\Base</Filter>

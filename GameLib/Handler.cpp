@@ -3,8 +3,8 @@
 
 Handler::Handler(Layer* defaultScene):
 	running(defaultScene),
-	defaultScene(*defaultScene->tags.begin()),
-	runningScene(*defaultScene->tags.begin())
+	defaultScene(*defaultScene->tags.front()),
+	runningScene(*defaultScene->tags.front())
 {
 	addEntity(defaultScene);
 }
